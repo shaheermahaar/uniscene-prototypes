@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniScene · POP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1C1438; --yellow:#FCBE2D; --lav:#CFC4F7; --mint:#BEEFCF; --pink:#FF4D9D; --violet:#7C5CFC; --green:#22C788;
+    --cream:#FFF7EC;
+    --display:'Bricolage Grotesque',sans-serif; --body:'Hanken Grotesk',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{font-family:var(--body);color:var(--navy);background:#d8d2ee}
+  body{display:flex;justify-content:center;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .phone{position:relative;width:100%;max-width:440px;background:var(--yellow);overflow:hidden}
+  @media(min-width:520px){body{align-items:flex-start;padding:24px 0;background:#2a2150}
+    .phone{border-radius:46px;box-shadow:0 0 0 9px #1C1438,0 40px 100px rgba(0,0,0,.5)}}
+
+  .screen{min-height:96vh;padding:16px 24px 30px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  @media(min-width:520px){.screen{min-height:780px}}
+  .s-yellow{background:var(--yellow)} .s-lav{background:var(--lav)} .s-mint{background:var(--mint)}
+
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:6px 0 0}
+  .wm{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.3px;display:flex;align-items:center;gap:7px}
+  .skip{font-weight:600;color:rgba(28,20,56,.55)}
+  .statusrow{display:flex;justify-content:space-between;font-size:13px;font-weight:700;padding-bottom:8px}
+
+  .emoji{position:absolute;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:34px;border:3px solid var(--navy);box-shadow:5px 5px 0 var(--navy);animation:bob 3.5s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-12px) rotate(var(--r,0deg))}}
+
+  .big{font-family:var(--display);font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-1px}
+  .hl{display:inline-block;color:#fff;padding:1px 14px;border-radius:14px;border:3px solid var(--navy);box-shadow:4px 4px 0 var(--navy);transform:rotate(-1.5deg)}
+  .hl.p{background:var(--pink)} .hl.v{background:var(--violet)} .hl.g{background:var(--green)}
+  .lead{margin-top:20px;font-size:17px;line-height:1.5;font-weight:500;max-width:340px;color:rgba(28,20,56,.85)}
+
+  .dots{display:flex;gap:8px;justify-content:center;margin:8px 0 16px}
+  .dots i{width:11px;height:11px;border-radius:50%;background:rgba(28,20,56,.25)}
+  .dots i.on{width:30px;border-radius:99px;background:var(--navy)}
+  .next{height:64px;border-radius:20px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;border:3px solid var(--navy);box-shadow:5px 6px 0 rgba(28,20,56,.35);transition:transform .1s}
+  .next:active{transform:translate(0,4px);box-shadow:5px 2px 0 rgba(28,20,56,.35)}
+
+  /* mock list card (screen 2) */
+  .mock{background:#fff;border:3px solid var(--navy);border-radius:24px;box-shadow:7px 8px 0 var(--navy);padding:16px;margin-top:8px}
+  .mock .top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+  .mock .av{width:46px;height:46px;border-radius:50%;background-size:cover;border:2.5px solid var(--navy)}
+  .mock .nm{font-family:var(--display);font-weight:800;font-size:17px}
+  .mock .sb{font-size:12.5px;color:rgba(28,20,56,.55)}
+  .mrow{display:flex;align-items:center;justify-content:space-between;border:2.5px solid var(--navy);border-radius:14px;padding:11px 13px;margin-bottom:9px;font-weight:600;font-size:14.5px}
+  .mrow:last-child{margin-bottom:0}
+  .mrow .pr{font-family:var(--display);font-weight:800}
+  .mr1{background:#FFE1EC}.mr2{background:#DCF3E6}.mr3{background:#FFF0CC}
+
+  /* app screen */
+  .app{background:var(--cream);min-height:96vh;padding-bottom:30px}
+  @media(min-width:520px){.app{min-height:780px}}
+  .hdr{background:var(--pink);padding:18px 22px 22px;position:relative;overflow:hidden;border-bottom:3px solid var(--navy)}
+  .hdr .blob{position:absolute;border-radius:50%}
+  .hdr .b1{width:130px;height:130px;background:var(--yellow);top:-30px;right:-20px;border:3px solid var(--navy)}
+  .hdr .b2{width:90px;height:90px;background:var(--violet);bottom:-30px;right:70px;border:3px solid var(--navy)}
+  .hbar{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;color:#fff}
+  .hwm{font-family:var(--display);font-weight:800;font-size:18px;display:flex;align-items:center;gap:6px}
+  .hero2{display:flex;align-items:center;gap:14px;position:relative;z-index:2;margin-top:16px}
+  .hero2 .pic{width:74px;height:74px;border-radius:50%;background-size:cover;border:3px solid var(--navy);box-shadow:4px 4px 0 var(--navy)}
+  .hero2 h2{font-family:var(--display);font-weight:800;font-size:27px;color:#fff;line-height:1}
+  .pill{display:inline-flex;align-items:center;gap:7px;margin-top:9px;background:#fff;border:3px solid var(--navy);border-radius:999px;padding:6px 13px;font-weight:700;font-size:13px;box-shadow:3px 3px 0 var(--navy)}
+  .pill b{color:var(--pink)}
+
+  .marq{background:var(--navy);overflow:hidden;padding:9px 0;-webkit-mask:none}
+  .mtrack{display:flex;gap:26px;width:max-content;animation:sx 14s linear infinite;font-family:var(--display);font-weight:800;font-size:14px;color:var(--yellow);white-space:nowrap}
+  @keyframes sx{to{transform:translateX(-50%)}}
+
+  .listhdr{display:flex;align-items:center;justify-content:space-between;padding:20px 22px 6px}
+  .listhdr h3{font-family:var(--display);font-weight:800;font-size:24px}
+  .listhdr span{font-size:13px;color:rgba(28,20,56,.55)}
+
+  .gift{margin:10px 18px;background:#fff;border:3px solid var(--navy);border-radius:22px;box-shadow:6px 7px 0 var(--navy);padding:15px;position:relative;overflow:hidden}
+  .gift .g-top{display:flex;gap:13px}
+  .gthumb{width:74px;height:74px;border-radius:15px;background-size:cover;border:2.5px solid var(--navy);flex:0 0 auto}
+  .gname{font-family:var(--display);font-weight:800;font-size:18px;line-height:1.1}
+  .glink{font-size:12.5px;color:rgba(28,20,56,.5);margin-top:2px}
+  .gprice{font-family:var(--display);font-weight:800;font-size:20px;margin-top:6px;display:flex;align-items:center;gap:9px}
+  .spark{font-family:var(--body);font-size:12px;font-weight:700;color:var(--navy);background:var(--yellow);border:2px solid var(--navy);border-radius:999px;padding:3px 9px}
+  .bar2{height:13px;border-radius:99px;background:#EFE7D6;border:2.5px solid var(--navy);margin:13px 0 9px;overflow:hidden}
+  .bar2 i{display:block;height:100%}
+  .barfill-p{background:var(--pink);width:73%}.barfill-v{background:var(--violet);width:25%}
+  .gmeta{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600}
+  .avs{display:flex}.avs i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;background-size:cover;margin-left:-8px;box-shadow:0 0 0 1px var(--navy)}.avs i:first-child{margin-left:0}
+  .cta2{margin-top:13px;height:52px;border-radius:15px;border:3px solid var(--navy);display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--display);font-weight:800;font-size:16px;color:#fff;box-shadow:4px 5px 0 var(--navy)}
+  .cta2.p{background:var(--pink)}.cta2.v{background:var(--violet)}
+  .ribbon{position:absolute;top:14px;right:-34px;transform:rotate(38deg);background:var(--green);color:var(--navy);font-family:var(--display);font-weight:800;font-size:12px;padding:5px 40px;border-top:2.5px solid var(--navy);border-bottom:2.5px solid var(--navy)}
+  .foot{text-align:center;font-size:11.5px;font-weight:700;color:rgba(28,20,56,.4);padding:14px 0 4px}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- SCREEN 1 -->
+  <section class="screen s-yellow">
+    <div class="statusrow"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div><div class="skip">Skip</div></div>
+    <div style="position:relative;flex:1;margin-top:10px">
+      <div class="emoji" style="top:70px;left:6px;background:var(--violet);--r:-8deg">💸</div>
+      <div class="emoji" style="top:120px;right:8px;background:var(--mint);--r:7deg">🎓</div>
+      <div class="emoji" style="top:300px;right:30px;width:150px;height:150px;background:var(--pink);font-size:64px;--r:4deg">🛍️</div>
+    </div>
+    <div>
+      <h1 class="big">Student life<br>is pricey.<br>Discounts<br><span class="hl p">shouldn't be hard</span></h1>
+      <p class="lead">Real brands, real student prices — the second you prove you're a student. No catch.</p>
+    </div>
+    <div style="margin-top:24px">
+      <div class="dots"><i class="on"></i><i></i><i></i></div>
+      <div class="next">Next →</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 -->
+  <section class="screen s-lav">
+    <div class="bar"><div class="wm">UNISCENE ✶</div><div class="skip">Skip</div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="mock">
+        <div class="top">
+          <div class="av" style="background-image:url('https://picsum.photos/seed/miraface/100/100')"></div>
+          <div><div class="nm">Verified · LUMS</div><div class="sb">4 brands she actually shops</div></div>
+        </div>
+        <div class="mrow mr1"><span>👟 Norcal — streetwear</span><span class="pr">20%</span></div>
+        <div class="mrow mr2"><span>👜 Jild — leather</span><span class="pr">15%</span></div>
+        <div class="mrow mr3"><span>⌚ D'noir — watches</span><span class="pr">25%</span></div>
+      </div>
+    </div>
+    <div>
+      <h1 class="big">Brands you love.<br><span class="hl v">actual student prices</span></h1>
+      <p class="lead">Real products, real links, real discounts. No fake "deals", no gift-card cop-outs.</p>
+    </div>
+    <div style="margin-top:24px">
+      <div class="dots"><i></i><i class="on"></i><i></i></div>
+      <div class="next">Next →</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 -->
+  <section class="screen s-mint">
+    <div class="bar"><div class="wm">UNISCENE ✶</div><div class="skip">Skip</div></div>
+    <div style="position:relative;flex:1">
+      <div class="emoji" style="top:50px;left:10px;background:var(--pink);--r:-7deg">🔥</div>
+      <div class="emoji" style="top:90px;right:14px;background:var(--yellow);--r:8deg">🙌</div>
+      <div class="mock" style="margin-top:150px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="gthumb" style="background-image:url('https://picsum.photos/seed/norcalmint/200/200')"></div>
+          <div style="flex:1"><div class="gname">Norcal 20% off</div><div class="bar2" style="margin:8px 0 6px"><i class="barfill-p" style="width:100%"></i></div><div style="font-size:13px;font-weight:700">CODE CLAIMED ✓ · joined 1,240 students</div></div>
+        </div>
+      </div>
+      <div class="emoji" style="top:330px;left:24px;background:var(--violet);--r:5deg">🎉</div>
+    </div>
+    <div>
+      <h1 class="big">Verify once.<br><span class="hl g">save everywhere</span></h1>
+      <p class="lead">LUMS · FAST · UMT · UCP · FCCU. Join thousands of verified students already saving.</p>
+    </div>
+    <div style="margin-top:24px">
+      <div class="dots"><i></i><i></i><i class="on"></i></div>
+      <div class="next">See it in action →</div>
+    </div>
+  </section>
+
+  <!-- APP SCREEN -->
+  <section class="app">
+    <div class="hdr">
+      <div class="blob b1"></div><div class="blob b2"></div>
+      <div class="hbar"><div class="hwm">UNISCENE ✶</div><div style="font-weight:700;font-size:13px">◎ You</div></div>
+      <div class="hero2">
+        <div class="pic" style="background-image:url('https://picsum.photos/seed/miraface/200/200')"></div>
+        <div>
+          <h2>Salam, Mira 👋</h2>
+          <div class="pill">✓ Verified · <b>LUMS</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="marq"><div class="mtrack">
+      <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
+      <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
+    </div></div>
+
+    <div class="listhdr"><h3>Your offers</h3><span>online-first ✓</span></div>
+
+    <div class="gift">
+      <div class="g-top">
+        <div class="gthumb" style="background-image:url('https://picsum.photos/seed/norcalpop/200/200')"></div>
+        <div style="flex:1">
+          <div class="gname">Norcal — 20% off</div>
+          <div class="glink">🔗 norcal.pk · streetwear</div>
+          <div class="gprice">20% <span class="spark">⚡ single-use code</span></div>
+        </div>
+      </div>
+      <div class="bar2"><i class="barfill-p"></i></div>
+      <div class="gmeta">
+        <span class="avs"><i style="background-image:url('https://picsum.photos/seed/a1/60')"></i><i style="background-image:url('https://picsum.photos/seed/a2/60')"></i><i style="background-image:url('https://picsum.photos/seed/a3/60')"></i></span>
+        <span>1,240 students claimed</span>
+      </div>
+      <div class="cta2 p">Reveal my code 🎁</div>
+    </div>
+
+    <div class="gift">
+      <div class="g-top">
+        <div class="gthumb" style="background-image:url('https://picsum.photos/seed/dnoirpop/200/200')"></div>
+        <div style="flex:1">
+          <div class="gname">D'noir — 25% off</div>
+          <div class="glink">🔗 dnoir.pk · watches</div>
+          <div class="gprice">25% <span class="spark">⚡ single-use code</span></div>
+        </div>
+      </div>
+      <div class="bar2"><i class="barfill-v"></i></div>
+      <div class="gmeta">
+        <span class="avs"><i style="background-image:url('https://picsum.photos/seed/a4/60')"></i><i style="background-image:url('https://picsum.photos/seed/a5/60')"></i></span>
+        <span>410 students claimed</span>
+      </div>
+      <div class="cta2 v">Reveal my code 🎁</div>
+    </div>
+
+    <div class="gift">
+      <div class="ribbon">CLAIMED ✓</div>
+      <div class="g-top">
+        <div class="gthumb" style="background-image:url('https://picsum.photos/seed/jildpop/200/200')"></div>
+        <div style="flex:1">
+          <div class="gname">Jild — 15% off</div>
+          <div class="glink">🔗 jild.com.pk · leather</div>
+          <div class="gprice">15% <span class="spark">shared code</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">UNISCENE · DIRECTION "POP" · PROTOTYPE</div>
+  </section>
+</div>
+</body>
+</html>

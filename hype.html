@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniScene · HYPE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lime:#CCFF00; --magenta:#FF2D8B; --violet:#8B5CF6; --blue:#3B82F6;
+    --ink:#0B0B0F; --cream:#FFFDF2; --card:#15151C;
+    --display:'Syne',sans-serif; --body:'Space Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:#050507;font-family:var(--body);color:var(--cream)}
+  body{display:flex;justify-content:center;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  /* device shell */
+  .phone{position:relative;width:100%;max-width:440px;min-height:100vh;background:var(--ink);overflow:hidden}
+  @media(min-width:520px){
+    body{align-items:flex-start;padding:24px 0;background:radial-gradient(circle at 30% 20%,#1a1030,#050507 60%)}
+    .phone{min-height:auto;border-radius:44px;box-shadow:0 0 0 10px #1c1c24,0 40px 120px rgba(139,92,246,.35);overflow:hidden}
+  }
+
+  /* animated blobs */
+  .blob{position:absolute;border-radius:50%;filter:blur(46px);opacity:.55;pointer-events:none;mix-blend-mode:screen;animation:drift 14s ease-in-out infinite}
+  .b1{width:340px;height:340px;background:var(--magenta);top:-120px;left:-90px}
+  .b2{width:300px;height:300px;background:var(--violet);top:200px;right:-110px;animation-delay:-4s}
+  .b3{width:260px;height:260px;background:var(--lime);bottom:140px;left:-80px;animation-delay:-8s}
+  @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.15)}66%{transform:translate(-30px,40px) scale(.9)}}
+
+  /* grain */
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.06;z-index:3;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .content{position:relative;z-index:5}
+
+  /* status bar */
+  .status{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 0;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.5px}
+
+  /* nav */
+  .topnav{display:flex;align-items:center;justify-content:space-between;padding:18px 22px}
+  .logo{display:flex;align-items:center;gap:9px}
+  .star{width:38px;height:38px;display:grid;place-items:center;background:var(--lime);color:var(--ink);border-radius:12px;font-size:22px;animation:spin 9s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .logo b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.5px}
+  .pillbtn{font-family:var(--mono);font-size:12px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:8px 14px;border-radius:999px}
+
+  /* hero */
+  .hero{padding:14px 22px 30px;position:relative}
+  .kicker{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--lime);background:rgba(204,255,0,.1);border:1px solid rgba(204,255,0,.3);padding:7px 13px;border-radius:999px;margin-bottom:18px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.3;transform:scale(.7)}}
+  h1.big{font-family:var(--display);font-weight:800;font-size:54px;line-height:.92;letter-spacing:-1.5px;text-transform:uppercase}
+  h1.big .grad{background:linear-gradient(100deg,var(--magenta),var(--violet) 50%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1.big .out{-webkit-text-stroke:2px var(--lime);color:transparent}
+  .sub{margin-top:16px;font-size:16px;line-height:1.5;color:#B8B6C8;max-width:330px}
+  .tagsticker{position:absolute;top:30px;right:14px;background:var(--magenta);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;padding:11px 15px;border-radius:14px;transform:rotate(9deg);box-shadow:0 8px 24px rgba(255,45,139,.5);animation:wob 3s ease-in-out infinite}
+  @keyframes wob{50%{transform:rotate(-6deg) scale(1.06)}}
+
+  /* marquee */
+  .marquee{margin:24px 0 4px;overflow:hidden;border-top:1.5px solid rgba(255,255,255,.12);border-bottom:1.5px solid rgba(255,255,255,.12);padding:12px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .track{display:flex;gap:34px;width:max-content;animation:scrollx 16s linear infinite;font-family:var(--display);font-weight:700;font-size:22px;text-transform:uppercase}
+  .track span{display:flex;align-items:center;gap:34px;color:#6E6A82}
+  .track .hot{color:var(--lime)}
+  @keyframes scrollx{to{transform:translateX(-50%)}}
+
+  .cta{margin:22px 22px 8px}
+  .cta a{display:flex;align-items:center;justify-content:center;gap:8px;height:62px;border-radius:18px;background:var(--lime);color:var(--ink);font-family:var(--display);font-weight:800;font-size:19px;box-shadow:0 10px 0 #7da300;transition:transform .1s,box-shadow .1s}
+  .cta a:active{transform:translateY(6px);box-shadow:0 4px 0 #7da300}
+  .ctahint{text-align:center;font-family:var(--mono);font-size:12px;color:#6E6A82;margin-top:14px}
+
+  /* section */
+  .sec{padding:34px 22px 8px}
+  .seclabel{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--magenta);font-weight:700}
+  .sectitle{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.5px;margin-top:6px;text-transform:uppercase;line-height:1}
+  .cats{display:flex;gap:8px;overflow-x:auto;padding:18px 22px;scrollbar-width:none}
+  .cats::-webkit-scrollbar{display:none}
+  .cat{flex:0 0 auto;font-family:var(--body);font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.16);color:#B8B6C8}
+  .cat.on{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+
+  /* offer grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:4px 22px 10px}
+  .card{position:relative;border-radius:22px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.08);transition:transform .15s}
+  .card:active{transform:scale(.96)}
+  .card .ph{height:118px;background-size:cover;background-position:center;position:relative}
+  .card .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--card))}
+  .deal{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--display);font-weight:800;font-size:17px;background:var(--lime);color:var(--ink);padding:5px 10px;border-radius:10px;transform:rotate(-4deg)}
+  .card .meta{padding:10px 13px 14px;position:relative;margin-top:-22px;z-index:2}
+  .card .bn{font-family:var(--display);font-weight:700;font-size:18px}
+  .card .bt{font-size:12.5px;color:#8A87A0;margin-top:1px}
+  .chip{display:inline-block;margin-top:9px;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:999px}
+  .chip.one{background:rgba(255,45,139,.16);color:var(--magenta)}
+  .chip.shared{background:rgba(139,92,246,.18);color:#b9a3ff}
+
+  /* reveal hero */
+  .reveal{margin:30px 22px;border-radius:28px;padding:26px;background:
+     radial-gradient(120% 90% at 10% 0%,rgba(255,45,139,.4),transparent 60%),
+     radial-gradient(120% 90% at 90% 100%,rgba(59,130,246,.4),transparent 60%),
+     var(--card);border:1px solid rgba(255,255,255,.12);text-align:center;position:relative;overflow:hidden}
+  .reveal .vn{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:#B8B6C8}
+  .reveal .dl{font-family:var(--display);font-weight:800;font-size:40px;margin:6px 0 18px;line-height:1}
+  .codebox{border:2px dashed var(--lime);border-radius:18px;padding:18px;background:rgba(204,255,0,.06)}
+  .codebox .lbl{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--lime)}
+  .codebox .code{font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:3px;margin:10px 0;color:#fff}
+  .timer{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:13px;font-weight:700;background:var(--ink);padding:8px 14px;border-radius:999px;color:var(--lime)}
+  .copy{margin-top:16px;height:54px;border-radius:14px;border:none;width:100%;background:var(--cream);color:var(--ink);font-family:var(--display);font-weight:800;font-size:17px}
+  .conf{position:absolute;width:9px;height:9px;border-radius:2px;top:-12px;animation:fall linear infinite}
+  @keyframes fall{to{transform:translateY(360px) rotate(420deg);opacity:0}}
+
+  /* bottom nav */
+  .bnav{position:sticky;bottom:0;z-index:6;display:flex;justify-content:space-around;padding:14px 0 26px;background:rgba(11,11,15,.85);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.1)}
+  .bnav div{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;font-weight:700;color:#6E6A82}
+  .bnav div.on{color:var(--lime)}
+  .bnav .ic{font-size:19px}
+  .foot{text-align:center;font-family:var(--mono);font-size:11px;color:#46435a;padding:6px 0 2px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="grain"></div>
+  <div class="content">
+    <div class="status"><span>9:41</span><span>UNISCENE ✦ HYPE</span><span>100%</span></div>
+
+    <div class="topnav">
+      <div class="logo"><div class="star">✶</div><b>uniscene</b></div>
+      <div class="pillbtn">LOG IN</div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="tagsticker">On hai ✦</div>
+      <div class="kicker"><span class="dot"></span>VERIFIED STUDENTS ONLY</div>
+      <h1 class="big">STUDENT<br><span class="grad">PRICES</span><br><span class="out">ZERO CAP</span></h1>
+      <p class="sub">Real discounts from Pakistani brands — unlocked the second you prove you're a student. LUMS · FAST · UMT · UCP · FCCU.</p>
+    </section>
+
+    <div class="marquee">
+      <div class="track">
+        <span><i class="hot">NORCAL —</i> JILD — <i class="hot">KHAZANAY —</i> D'NOIR — <i class="hot">20% OFF —</i> FREE FOREVER —</span>
+        <span><i class="hot">NORCAL —</i> JILD — <i class="hot">KHAZANAY —</i> D'NOIR — <i class="hot">20% OFF —</i> FREE FOREVER —</span>
+      </div>
+    </div>
+
+    <div class="cta"><a href="#offers">Get started — it's free ✶</a></div>
+    <div class="ctahint">verify in 2 mins · no card · no catch</div>
+
+    <!-- OFFERS -->
+    <section class="sec" id="offers">
+      <div class="seclabel">02 — THE DROP</div>
+      <div class="sectitle">Brands that<br>get you</div>
+    </section>
+    <div class="cats">
+      <div class="cat on">All</div><div class="cat">Fashion</div><div class="cat">Tech</div><div class="cat">Accessories</div><div class="cat">Food</div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ph" style="background-image:url('https://picsum.photos/seed/norcalstreet/400/300')"><div class="deal">20% OFF</div></div>
+        <div class="meta"><div class="bn">Norcal</div><div class="bt">Streetwear</div><span class="chip one">1-TIME CODE</span></div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://picsum.photos/seed/jildleather/400/300')"><div class="deal">15% OFF</div></div>
+        <div class="meta"><div class="bn">Jild</div><div class="bt">Leather goods</div><span class="chip shared">SHARED CODE</span></div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://picsum.photos/seed/khazanaytech/400/300')"><div class="deal">Rs2K OFF</div></div>
+        <div class="meta"><div class="bn">Khazanay</div><div class="bt">Pre-owned tech</div><span class="chip shared">SHARED CODE</span></div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://picsum.photos/seed/dnoirwatch/400/300')"><div class="deal">25% OFF</div></div>
+        <div class="meta"><div class="bn">D'noir</div><div class="bt">Watches</div><span class="chip one">1-TIME CODE</span></div>
+      </div>
+    </div>
+
+    <!-- REVEAL -->
+    <section class="sec"><div class="seclabel">03 — THE MOMENT</div><div class="sectitle">Tap. Reveal.<br>Flex.</div></section>
+    <div class="reveal" id="conf">
+      <div class="vn">NORCAL · STREETWEAR</div>
+      <div class="dl">20% OFF everything</div>
+      <div class="codebox">
+        <div class="lbl">YOUR CODE — YOURS ALONE</div>
+        <div class="code">NOR-7K2M-9XQ</div>
+        <div class="timer">⏱ EXPIRES IN <span id="t">29:54</span></div>
+      </div>
+      <button class="copy">Copy &amp; shop on norcal.pk ↗</button>
+    </div>
+
+    <div class="bnav">
+      <div class="on"><span class="ic">✦</span>Offers</div>
+      <div><span class="ic">▣</span>Card</div>
+      <div><span class="ic">♡</span>Saved</div>
+      <div><span class="ic">◉</span>You</div>
+    </div>
+    <div class="foot">UNISCENE · DIRECTION A "HYPE" · PROTOTYPE</div>
+  </div>
+</div>
+<script>
+  // countdown
+  let s=29*60+54;const t=document.getElementById('t');
+  setInterval(()=>{s=Math.max(0,s-1);t.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000);
+  // confetti
+  const host=document.getElementById('conf');const cols=['#CCFF00','#FF2D8B','#8B5CF6','#3B82F6'];
+  for(let i=0;i<26;i++){const c=document.createElement('div');c.className='conf';c.style.left=Math.random()*100+'%';c.style.background=cols[i%4];c.style.animationDuration=(2.4+Math.random()*2)+'s';c.style.animationDelay=(Math.random()*3)+'s';host.appendChild(c)}
+</script>
+</body>
+</html>

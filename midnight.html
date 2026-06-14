@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniScene · MIDNIGHT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070C; --bg2:#0C0C16; --glass:rgba(255,255,255,.045); --line:rgba(255,255,255,.1);
+    --mint:#5EEAD4; --emerald:#34D399; --indigo:#818CF8; --gold:#F5C97B;
+    --txt:#ECECF4; --mut:#9A9AB2; --dim:#65657E;
+    --display:'Sora',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:#030305;font-family:var(--display);color:var(--txt)}
+  body{display:flex;justify-content:center;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  .phone{position:relative;width:100%;max-width:440px;min-height:100vh;background:
+     radial-gradient(120% 60% at 50% -10%,#15152a,transparent 60%),var(--bg);overflow:hidden}
+  @media(min-width:520px){
+    body{align-items:flex-start;padding:24px 0;background:radial-gradient(circle at 50% 0%,#10101f,#030305 55%)}
+    .phone{min-height:auto;border-radius:46px;box-shadow:0 0 0 9px #121220,0 0 0 10px #2a2a40,0 50px 130px rgba(94,234,212,.18);overflow:hidden}
+  }
+
+  /* aurora */
+  .aurora{position:absolute;inset:0;pointer-events:none;opacity:.6;filter:blur(60px)}
+  .a1{position:absolute;width:320px;height:320px;border-radius:50%;background:var(--emerald);top:-100px;left:-60px;animation:au 18s ease-in-out infinite}
+  .a2{position:absolute;width:300px;height:300px;border-radius:50%;background:var(--indigo);top:280px;right:-90px;animation:au 22s ease-in-out infinite reverse}
+  .a3{position:absolute;width:280px;height:280px;border-radius:50%;background:var(--mint);bottom:60px;left:-70px;opacity:.5;animation:au 20s ease-in-out infinite}
+  @keyframes au{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,40px)}}
+
+  .content{position:relative;z-index:5}
+  .status{display:flex;justify-content:space-between;padding:15px 26px 0;font-family:var(--mono);font-size:12.5px;color:var(--mut)}
+
+  .topnav{display:flex;align-items:center;justify-content:space-between;padding:20px 24px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .mark{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,var(--emerald),var(--indigo));color:#07070C;font-size:20px;box-shadow:0 0 24px rgba(94,234,212,.5)}
+  .logo b{font-weight:700;font-size:22px;letter-spacing:-.3px}
+  .logo b span{color:var(--mint)}
+  .ghost{font-family:var(--mono);font-size:12px;color:var(--mut);border:1px solid var(--line);padding:9px 15px;border-radius:999px}
+
+  /* hero */
+  .hero{padding:22px 24px 8px}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.5px;color:var(--mint);background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.25);padding:7px 13px;border-radius:999px}
+  .badge .d{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
+  h1{font-weight:800;font-size:46px;line-height:1.04;letter-spacing:-1.5px;margin:20px 0 0}
+  h1 .g{background:linear-gradient(100deg,var(--mint),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:16px;font-size:15.5px;line-height:1.6;color:var(--mut);max-width:340px}
+  .unis{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+  .uni{font-family:var(--mono);font-size:11.5px;color:var(--mut);border:1px solid var(--line);padding:6px 11px;border-radius:8px;background:var(--glass)}
+
+  .primary{margin:24px 24px 10px;display:flex;align-items:center;justify-content:center;gap:9px;height:60px;border-radius:18px;font-weight:700;font-size:17px;
+     color:#061210;background:linear-gradient(135deg,var(--mint),var(--emerald));box-shadow:0 14px 40px rgba(52,211,153,.35);transition:transform .12s}
+  .primary:active{transform:scale(.98)}
+  .trust{display:flex;align-items:center;justify-content:center;gap:18px;font-family:var(--mono);font-size:11.5px;color:var(--dim);padding:10px}
+  .trust b{color:var(--mut)}
+
+  /* glass section */
+  .sec{padding:32px 24px 6px}
+  .sl{font-family:var(--mono);font-size:11.5px;letter-spacing:2px;color:var(--indigo)}
+  .st{font-weight:700;font-size:27px;letter-spacing:-.6px;margin-top:7px}
+  .cats{display:flex;gap:8px;overflow-x:auto;padding:16px 24px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+  .cat{flex:0 0 auto;font-size:13.5px;font-weight:500;color:var(--mut);padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--glass)}
+  .cat.on{color:#07070C;background:var(--txt);border-color:var(--txt);font-weight:600}
+
+  .list{padding:4px 24px 8px;display:flex;flex-direction:column;gap:12px}
+  .row{display:flex;gap:14px;align-items:center;padding:13px;border-radius:20px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);transition:transform .14s,border-color .2s}
+  .row:active{transform:scale(.985);border-color:rgba(94,234,212,.4)}
+  .thumb{width:64px;height:64px;border-radius:15px;background-size:cover;background-position:center;flex:0 0 auto;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+  .row .info{flex:1;min-width:0}
+  .row .bn{font-weight:600;font-size:16.5px}
+  .row .bt{font-size:13px;color:var(--mut);margin-top:1px}
+  .row .deal{font-weight:700;font-size:20px;letter-spacing:-.5px;background:linear-gradient(100deg,var(--mint),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;text-align:right}
+  .row .ty{display:block;font-family:var(--mono);font-size:10px;color:var(--dim);text-align:right;margin-top:3px}
+
+  /* reveal */
+  .reveal{margin:30px 24px;border-radius:26px;padding:1px;background:linear-gradient(135deg,var(--mint),var(--indigo),var(--gold));box-shadow:0 30px 80px rgba(94,234,212,.2)}
+  .reveal .in{border-radius:25px;background:linear-gradient(180deg,#0d0d18,#0a0a12);padding:26px;text-align:center}
+  .reveal .vn{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--mut)}
+  .reveal .dl{font-weight:800;font-size:34px;letter-spacing:-1px;margin:8px 0 20px}
+  .codewrap{position:relative;border-radius:18px;padding:20px;background:#07070C;border:1px solid var(--line);overflow:hidden}
+  .codewrap::before{content:"";position:absolute;top:0;left:-60%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(94,234,212,.18),transparent);animation:shine 3.4s ease-in-out infinite}
+  @keyframes shine{0%{left:-60%}60%,100%{left:120%}}
+  .cl{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--mint)}
+  .cv{font-family:var(--mono);font-weight:700;font-size:25px;letter-spacing:4px;margin:10px 0;color:#fff}
+  .exp{display:inline-flex;gap:7px;font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+  .shopbtn{margin-top:18px;height:54px;border-radius:14px;border:1px solid var(--line);background:var(--glass);color:var(--txt);font-weight:600;font-size:16px;width:100%;backdrop-filter:blur(8px)}
+
+  .bnav{position:sticky;bottom:0;z-index:6;display:flex;justify-content:space-around;padding:14px 0 28px;background:rgba(7,7,12,.7);backdrop-filter:blur(20px);border-top:1px solid var(--line)}
+  .bnav div{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+  .bnav div.on{color:var(--mint)}.bnav .ic{font-size:18px}
+  .foot{text-align:center;font-family:var(--mono);font-size:10.5px;color:#3a3a4e;padding:8px 0 2px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="aurora"><div class="a1"></div><div class="a2"></div><div class="a3"></div></div>
+  <div class="content">
+    <div class="status"><span>9:41</span><span>● ● ●</span><span>5G</span></div>
+    <div class="topnav">
+      <div class="logo"><div class="mark">✶</div><b>uni<span>scene</span></b></div>
+      <div class="ghost">Log in</div>
+    </div>
+
+    <section class="hero">
+      <div class="badge"><span class="d"></span>VERIFIED STUDENT NETWORK</div>
+      <h1>Student prices,<br><span class="g">unlocked.</span></h1>
+      <p class="sub">Premium discounts from Pakistan's best brands — for verified students only. Prove it once, save everywhere.</p>
+      <div class="unis"><span class="uni">LUMS</span><span class="uni">FAST</span><span class="uni">UMT</span><span class="uni">UCP</span><span class="uni">FCCU</span></div>
+    </section>
+    <a class="primary" href="#offers">Verify &amp; start saving →</a>
+    <div class="trust"><span><b>2 min</b> setup</span><span><b>4</b> brands live</span><span><b>Free</b> forever</span></div>
+
+    <section class="sec" id="offers">
+      <div class="sl">02 — LIVE OFFERS</div>
+      <div class="st">Curated for you</div>
+    </section>
+    <div class="cats"><div class="cat on">All</div><div class="cat">Fashion</div><div class="cat">Tech</div><div class="cat">Accessories</div></div>
+    <div class="list">
+      <div class="row"><div class="thumb" style="background-image:url('https://picsum.photos/seed/norcaldark/200/200')"></div>
+        <div class="info"><div class="bn">Norcal</div><div class="bt">Streetwear · online</div></div>
+        <div><div class="deal">20%</div><span class="ty">SINGLE-USE</span></div></div>
+      <div class="row"><div class="thumb" style="background-image:url('https://picsum.photos/seed/jilddark/200/200')"></div>
+        <div class="info"><div class="bn">Jild</div><div class="bt">Leather goods · online</div></div>
+        <div><div class="deal">15%</div><span class="ty">SHARED</span></div></div>
+      <div class="row"><div class="thumb" style="background-image:url('https://picsum.photos/seed/khazdark/200/200')"></div>
+        <div class="info"><div class="bn">Khazanay</div><div class="bt">Pre-owned tech · online</div></div>
+        <div><div class="deal">Rs2K</div><span class="ty">SHARED</span></div></div>
+      <div class="row"><div class="thumb" style="background-image:url('https://picsum.photos/seed/dnoirdark/200/200')"></div>
+        <div class="info"><div class="bn">D'noir</div><div class="bt">Watches · online</div></div>
+        <div><div class="deal">25%</div><span class="ty">SINGLE-USE</span></div></div>
+    </div>
+
+    <section class="sec"><div class="sl">03 — YOUR CODE</div><div class="st">Yours alone</div></section>
+    <div class="reveal"><div class="in">
+      <div class="vn">NORCAL · STREETWEAR</div>
+      <div class="dl">20% off everything</div>
+      <div class="codewrap">
+        <div class="cl">SINGLE-USE CODE</div>
+        <div class="cv">NOR-7K2M-9XQ</div>
+        <div class="exp">◷ expires in <span id="t">29:41</span></div>
+      </div>
+      <button class="shopbtn">Copy &amp; shop on norcal.pk ↗</button>
+    </div></div>
+
+    <div class="bnav">
+      <div class="on"><span class="ic">◈</span>Offers</div><div><span class="ic">▢</span>Card</div>
+      <div><span class="ic">♡</span>Saved</div><div><span class="ic">○</span>Profile</div>
+    </div>
+    <div class="foot">UNISCENE · DIRECTION B "MIDNIGHT" · PROTOTYPE</div>
+  </div>
+</div>
+<script>
+  let s=29*60+41;const t=document.getElementById('t');
+  setInterval(()=>{s=Math.max(0,s-1);t.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniScene · Prototype Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'Sora',sans-serif;color:#ECECF4;min-height:100vh;padding:34px 18px 130px;
+    background:radial-gradient(circle at 15% 0%,#231640,#06060c 55%)}
+  .wrap{max-width:760px;margin:0 auto}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .mark{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#5EEAD4,#818CF8);color:#07070C;font-size:23px}
+  .head b{font-weight:800;font-size:26px;letter-spacing:-.5px}.head b span{color:#5EEAD4}
+  .lead{font-family:'JetBrains Mono',monospace;font-size:12px;color:#9A9AB2;letter-spacing:1px;margin:14px 0 4px}
+  h1{font-weight:800;font-size:34px;letter-spacing:-1px;line-height:1.08;margin-bottom:8px}
+  .desc{color:#9A9AB2;font-size:15px;line-height:1.55;margin-bottom:8px;max-width:560px}
+  .grouph{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:2px;color:#65657E;margin:26px 0 12px;text-transform:uppercase}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+  .card{position:relative;border-radius:22px;padding:22px;border:1px solid rgba(255,255,255,.12);overflow:hidden;display:flex;flex-direction:column;min-height:215px}
+  .card.sel{border-color:#5EEAD4;box-shadow:0 0 0 2px #5EEAD4,0 18px 50px rgba(94,234,212,.25)}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.5px;opacity:.85}
+  .card h2{font-weight:800;font-size:25px;letter-spacing:-.5px;margin:7px 0 6px}
+  .card p{font-size:13.5px;line-height:1.5;opacity:.9;flex:1}
+  .ref{display:inline-block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.18);padding:3px 8px;border-radius:999px;align-self:flex-start}
+  .swatch{display:flex;gap:6px;margin:14px 0}
+  .swatch i{width:24px;height:24px;border-radius:7px;display:block;border:1px solid rgba(255,255,255,.15)}
+  .btns{display:flex;gap:9px;margin-top:4px}
+  .btns a,.btns button{flex:1;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;padding:13px;border-radius:13px;text-align:center;text-decoration:none}
+  .prev{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18)!important}
+  .pick{background:#ECECF4;color:#0a0a14}
+  .card.sel .pick{background:#5EEAD4;color:#06231f}
+  .chosen-badge{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:#5EEAD4;color:#06231f;padding:5px 10px;border-radius:999px;display:none}
+  .card.sel .chosen-badge{display:block}
+
+  /* per-theme accents */
+  .hype{background:linear-gradient(135deg,#1a1320,#0d0d12)}.hype .tag{color:#CCFF00}
+  .mid{background:linear-gradient(135deg,#0d0d1a,#0a0a12)}.mid .tag{color:#5EEAD4}
+  .aur{background:linear-gradient(135deg,#2a1840,#161028)}.aur .tag{color:#FF9F43}
+  .campus{background:linear-gradient(135deg,#241a44,#140f28)}.campus .tag{color:#8B5CF6}
+  .pop{background:linear-gradient(135deg,#3a2e10,#1c1408)}.pop .tag{color:#FCBE2D}
+  .drip{background:linear-gradient(135deg,#22201a,#121009)}.drip .tag{color:#D7FF3E}
+  .riot{background:linear-gradient(135deg,#1a1a05,#0a0a0a);border-color:rgba(230,255,0,.3)}.riot .tag{color:#E6FF00}
+
+  /* sticky pick bar */
+  .bar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(8,8,14,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.12);padding:16px 18px 26px;transform:translateY(110%);transition:transform .3s}
+  .bar.show{transform:translateY(0)}
+  .bar .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .bar .txt{flex:1;min-width:180px}
+  .bar .t1{font-weight:700;font-size:15px}
+  .bar .t2{font-family:'JetBrains Mono',monospace;font-size:12px;color:#9A9AB2;margin-top:3px}
+  .bar code{background:rgba(94,234,212,.14);color:#5EEAD4;padding:2px 7px;border-radius:6px}
+  .note{font-family:'JetBrains Mono',monospace;font-size:11px;color:#5a5870;line-height:1.7;text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><div class="mark">✶</div><b>uni<span>scene</span></b></div>
+  <div class="lead">ON HAI · PROTOTYPE DASHBOARD · 7 DIRECTIONS</div>
+  <h1>Pick the vibe.</h1>
+  <p class="desc">Seven takes on the same product — all tap-through on your phone, same brand &amp; vendors, different soul. Hit <b>Preview</b> to open one full-screen, then <b>Choose</b> the winner. Whichever you pick becomes the real app's design tokens; every screen already built inherits it instantly.</p>
+
+  <div class="grouph">⬢ Pulled from your references</div>
+  <div class="grid">
+    <div class="card pop" id="card-pop">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · POP</div>
+      <h2>POP 🎈</h2>
+      <p>The "Birthday Pot" energy: fat rounded type, marker-highlight phrases, bright colour blocks, 3D emoji badges, thick navy outlines &amp; hard shadows. Loud, friendly, neo-brutalist.</p>
+      <span class="ref">ref: Birthday Pot screenshots</span>
+      <div class="swatch"><i style="background:#FCBE2D"></i><i style="background:#FF4D9D"></i><i style="background:#7C5CFC"></i><i style="background:#1C1438"></i></div>
+      <div class="btns"><a class="prev" href="./pop.html">👁 Preview</a><button class="pick" data-id="pop" data-name="POP">✓ Choose</button></div>
+    </div>
+    <div class="card campus" id="card-campus">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · CAMPUS</div>
+      <h2>CAMPUS 🎓</h2>
+      <p>The proven Student-Beans layout — clean cards, category icons, search, trending row, brand-logo grid with "Get code". Familiar, trustworthy, conversion-tested UX. UniScene-branded.</p>
+      <span class="ref">ref: Student Beans UX</span>
+      <div class="swatch"><i style="background:#6C3CE3"></i><i style="background:#13C7A6"></i><i style="background:#FF5C8A"></i><i style="background:#F7F6FB"></i></div>
+      <div class="btns"><a class="prev" href="./campus.html">👁 Preview</a><button class="pick" data-id="campus" data-name="CAMPUS">✓ Choose</button></div>
+    </div>
+  </div>
+
+  <div class="grouph">⬢ Original directions</div>
+  <div class="grid">
+    <div class="card riot" id="card-riot">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · RIOT</div>
+      <h2>RIOT ⚡</h2>
+      <p>Go-crazy mode. Acid lime + glitch, skewed type, sticker chaos, hard offset shadows, rave-brutalism. Anti-design, maximum attitude — for the boldest version of us.</p>
+      <span class="ref">brief: "go crazy"</span>
+      <div class="swatch"><i style="background:#E6FF00"></i><i style="background:#FF0059"></i><i style="background:#00E5FF"></i><i style="background:#0A0A0A"></i></div>
+      <div class="btns"><a class="prev" href="./riot.html">👁 Preview</a><button class="pick" data-id="riot" data-name="RIOT">✓ Choose</button></div>
+    </div>
+    <div class="card drip" id="card-drip">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · DRIP</div>
+      <h2>DRIP 🤎</h2>
+      <p>Trendy &amp; current. Cream + ink, italic serif display, lime highlighter, bento-grid offers, monospace details. Quiet-cool editorial streetwear — effortlessly of-the-moment.</p>
+      <span class="ref">brief: "go trendy"</span>
+      <div class="swatch"><i style="background:#F0EBE2"></i><i style="background:#181613"></i><i style="background:#D7FF3E"></i><i style="background:#E2562B"></i></div>
+      <div class="btns"><a class="prev" href="./drip.html">👁 Preview</a><button class="pick" data-id="drip" data-name="DRIP">✓ Choose</button></div>
+    </div>
+    <div class="card hype" id="card-hype">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · HYPE</div>
+      <h2>HYPE 🔥</h2>
+      <p>Funky electric Gen-Z. Acid lime + magenta + violet, marquee, confetti on reveal, springy buttons, grain. Maximum dopamine — vibrant and loud.</p>
+      <span class="ref">brief: "vibrant / funky"</span>
+      <div class="swatch"><i style="background:#CCFF00"></i><i style="background:#FF2D8B"></i><i style="background:#8B5CF6"></i><i style="background:#0B0B0F"></i></div>
+      <div class="btns"><a class="prev" href="./hype.html">👁 Preview</a><button class="pick" data-id="hype" data-name="HYPE">✓ Choose</button></div>
+    </div>
+    <div class="card mid" id="card-midnight">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · MIDNIGHT</div>
+      <h2>MIDNIGHT 🌙</h2>
+      <p>Premium dark. Aurora glows behind glass, mint + indigo, shimmering code, soft luminous shadows. Sophisticated and calm — Linear/Arc for students.</p>
+      <span class="ref">brief: "decent / dark"</span>
+      <div class="swatch"><i style="background:#5EEAD4"></i><i style="background:#818CF8"></i><i style="background:#F5C97B"></i><i style="background:#07070C"></i></div>
+      <div class="btns"><a class="prev" href="./midnight.html">👁 Preview</a><button class="pick" data-id="midnight" data-name="MIDNIGHT">✓ Choose</button></div>
+    </div>
+    <div class="card aur" id="card-aurora">
+      <span class="chosen-badge">✓ CHOSEN</span>
+      <div class="tag">DIRECTION · AURORA</div>
+      <h2>AURORA 🌈</h2>
+      <p>Bright fintech polish. Living coral→violet→sky gradients, floating stat cards, clean rounded surfaces. Friendly, optimistic, very mobile-native.</p>
+      <span class="ref">brief: "vibrant / clean"</span>
+      <div class="swatch"><i style="background:#FF6B6B"></i><i style="background:#7C5CFC"></i><i style="background:#4FACFE"></i><i style="background:#0FD3B5"></i></div>
+      <div class="btns"><a class="prev" href="./aurora.html">👁 Preview</a><button class="pick" data-id="aurora" data-name="AURORA">✓ Choose</button></div>
+    </div>
+  </div>
+
+  <p class="note">Tip: open each on your phone, scroll the whole screen, then Choose.<br>Mix-and-match is fine too — e.g. "POP's colours, MIDNIGHT's calm".</p>
+</div>
+
+<div class="bar" id="bar"><div class="in">
+  <div class="txt"><div class="t1" id="bt1">—</div><div class="t2" id="bt2"></div></div>
+</div></div>
+
+<script>
+  const bar=document.getElementById('bar'),bt1=document.getElementById('bt1'),bt2=document.getElementById('bt2');
+  const prev=localStorage.getItem('uniscene-pick');
+  function mark(id,name){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('sel'));
+    document.getElementById('card-'+id).classList.add('sel');
+    bt1.innerHTML='You chose <b>'+name+'</b> ✨';
+    bt2.innerHTML='Tell Claude: <code>build '+name+'</code> — and the real app transforms.';
+    bar.classList.add('show');
+  }
+  if(prev){const p=JSON.parse(prev);mark(p.id,p.name)}
+  document.querySelectorAll('.pick').forEach(b=>b.addEventListener('click',()=>{
+    const id=b.dataset.id,name=b.dataset.name;
+    localStorage.setItem('uniscene-pick',JSON.stringify({id,name}));
+    mark(id,name);window.scrollTo({top:document.getElementById('card-'+id).offsetTop-20,behavior:'smooth'});
+  }));
+</script>
+</body>
+</html>
