@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniScene · POP MINI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FCBE2D; --navy:#1C1438; --lav:#CFC4F7; --mint:#BEEFCF; --pink:#FF4D9D; --violet:#7C5CFC; --green:#22C788;
+    --cream:#FFF7EC; --paper:#fff; --mut:#8A82A0;
+    --display:'Bricolage Grotesque',sans-serif; --body:'Hanken Grotesk',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{font-family:var(--body);color:var(--navy);background:#d8d2ee}
+  body{display:flex;justify-content:center;min-height:100vh}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  .phone{position:relative;width:100%;max-width:440px;min-height:100vh;background:var(--yellow);overflow:hidden}
+  @media(min-width:520px){body{align-items:flex-start;padding:24px 0;background:#2a2150}
+    .phone{min-height:auto;height:880px;border-radius:46px;box-shadow:0 0 0 9px #1C1438,0 40px 100px rgba(0,0,0,.5)}}
+
+  .scr{display:none;flex-direction:column;min-height:100vh;position:relative;overflow-y:auto}
+  @media(min-width:520px){.scr{min-height:880px;height:880px}}
+  .scr.on{display:flex;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .s-yellow{background:var(--yellow)} .s-lav{background:var(--lav)} .s-mint{background:var(--mint)} .s-cream{background:var(--cream)}
+
+  .status{display:flex;justify-content:space-between;font-size:13px;font-weight:700;padding:14px 24px 0}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px 4px}
+  .wm{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.3px}
+  .skip{font-weight:700;color:rgba(28,20,56,.55)}
+  .back{width:44px;height:44px;border-radius:50%;background:#fff;border:3px solid var(--navy);box-shadow:3px 3px 0 var(--navy);display:grid;place-items:center;font-size:18px;font-weight:800}
+  .pad{padding:14px 24px 28px;flex:1;display:flex;flex-direction:column}
+
+  .big{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-1px}
+  .hl{display:inline-block;color:#fff;padding:1px 14px;border-radius:14px;border:3px solid var(--navy);box-shadow:4px 4px 0 var(--navy);transform:rotate(-1.5deg)}
+  .hl.p{background:var(--pink)} .hl.v{background:var(--violet)} .hl.g{background:var(--green)}
+  .lead{margin-top:18px;font-size:16px;line-height:1.5;font-weight:500;max-width:340px;color:rgba(28,20,56,.85)}
+
+  .emoji{position:absolute;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:33px;border:3px solid var(--navy);box-shadow:5px 5px 0 var(--navy);animation:bob 3.5s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-12px) rotate(var(--r,0deg))}}
+
+  .dots{display:flex;gap:8px;justify-content:center;margin:6px 0 16px}
+  .dots i{width:11px;height:11px;border-radius:50%;background:rgba(28,20,56,.25)}
+  .dots i.on{width:30px;border-radius:99px;background:var(--navy)}
+
+  .btn{height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--display);font-weight:800;font-size:18px;border:3px solid var(--navy);transition:transform .1s,box-shadow .1s;width:100%}
+  .btn:active{transform:translateY(4px)}
+  .btn-navy{background:var(--navy);color:#fff;box-shadow:5px 6px 0 rgba(28,20,56,.35)}
+  .btn-navy:active{box-shadow:5px 2px 0 rgba(28,20,56,.35)}
+  .btn-pink{background:var(--pink);color:#fff;box-shadow:5px 6px 0 var(--navy)}
+  .btn-pink:active{box-shadow:5px 2px 0 var(--navy)}
+  .btn-yellow{background:var(--yellow);color:var(--navy);box-shadow:5px 6px 0 var(--navy)}
+  .spacer{flex:1}
+
+  /* forms */
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+  .field label{font-family:var(--display);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:rgba(28,20,56,.6)}
+  .field input{height:54px;border-radius:14px;border:3px solid var(--navy);background:#fff;padding:0 16px;font-size:16px;font-weight:600;color:var(--navy);outline:none}
+  .field input:focus{box-shadow:3px 3px 0 var(--yellow)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{min-height:44px;padding:9px 15px;border-radius:13px;border:3px solid var(--navy);background:#fff;font-weight:700;font-size:14px}
+  .chip.on{background:var(--violet);color:#fff;box-shadow:3px 3px 0 var(--navy)}
+  .err{color:var(--pink);font-weight:700;font-size:14px;margin-bottom:10px;display:none}
+
+  .vcard{border-radius:20px;border:3px solid var(--navy);padding:18px;margin-bottom:14px;box-shadow:5px 6px 0 var(--navy);text-align:left;width:100%;display:block}
+  .vcard.lead-c{background:var(--violet);color:#fff}
+  .vcard.alt-c{background:#fff}
+  .vtag{display:inline-block;font-family:var(--display);font-weight:700;font-size:11px;padding:5px 11px;border-radius:999px;border:2px solid var(--navy);margin-bottom:9px}
+  .vtag.now{background:var(--yellow);color:var(--navy)} .vtag.l8{background:var(--mint);color:var(--navy)}
+  .vcard h3{font-family:var(--display);font-weight:800;font-size:20px;margin-bottom:5px}
+  .vcard p{font-size:14px;line-height:1.45;opacity:.92}
+
+  .progress{height:14px;border-radius:99px;background:rgba(28,20,56,.12);border:3px solid var(--navy);overflow:hidden;margin:18px 0}
+  .progress i{display:block;height:100%;background:var(--green);width:0;transition:width .2s}
+  .scanrow{font-weight:600;font-size:14px;color:rgba(28,20,56,.7);padding:5px 0}
+
+  /* offers — small square cards */
+  .hdr{background:var(--pink);border-bottom:3px solid var(--navy);padding:16px 22px 20px;position:relative;overflow:hidden}
+  .hdr .blob{position:absolute;border-radius:50%;border:3px solid var(--navy)}
+  .hdr .b1{width:120px;height:120px;background:var(--yellow);top:-34px;right:-18px}
+  .hdr .b2{width:70px;height:70px;background:var(--violet);bottom:-26px;right:80px}
+  .hgreet{position:relative;z-index:2;color:#fff;display:flex;align-items:center;gap:13px;margin-top:10px}
+  .hgreet .pic{width:60px;height:60px;border-radius:50%;background-size:cover;border:3px solid var(--navy);box-shadow:3px 3px 0 var(--navy)}
+  .hgreet h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;color:#fff}
+  .vpill{display:inline-flex;align-items:center;gap:6px;margin-top:7px;background:#fff;border:3px solid var(--navy);border-radius:999px;padding:5px 12px;font-weight:800;font-size:12px;color:var(--navy);box-shadow:2px 2px 0 var(--navy)}
+  .vpill b{color:var(--pink)}
+  .marq{background:var(--navy);overflow:hidden;padding:8px 0}
+  .mtrack{display:flex;gap:24px;width:max-content;animation:sx 13s linear infinite;font-family:var(--display);font-weight:800;font-size:13px;color:var(--yellow);white-space:nowrap}
+  @keyframes sx{to{transform:translateX(-50%)}}
+  .search{margin:16px 22px 4px;display:flex;align-items:center;gap:9px;height:50px;border-radius:14px;border:3px solid var(--navy);background:#fff;padding:0 15px;color:var(--mut);font-weight:600;font-size:15px}
+  .cats{display:flex;gap:8px;overflow-x:auto;padding:12px 22px 6px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+  .cat{flex:0 0 auto;min-height:40px;padding:8px 15px;border-radius:999px;border:3px solid var(--navy);background:#fff;font-weight:700;font-size:13.5px}
+  .cat.on{background:var(--navy);color:#fff}
+  .sectit{font-family:var(--display);font-weight:800;font-size:18px;padding:14px 22px 4px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:4px 22px 16px}
+  .ocard{background:#fff;border:3px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:4px 5px 0 var(--navy);transition:transform .12s}
+  .ocard:active{transform:translate(2px,2px);box-shadow:2px 3px 0 var(--navy)}
+  .ocard .sq{aspect-ratio:1/1;background-size:cover;background-position:center;position:relative;border-bottom:3px solid var(--navy)}
+  .ocard .deal{position:absolute;top:8px;left:8px;font-family:var(--display);font-weight:800;font-size:14px;background:var(--yellow);color:var(--navy);border:2px solid var(--navy);padding:3px 8px;border-radius:9px}
+  .ocard .meta{padding:9px 11px 12px}
+  .ocard .bn{font-family:var(--display);font-weight:800;font-size:15px;line-height:1}
+  .ocard .bt{font-size:11.5px;color:var(--mut);margin-top:2px}
+  .ctype{display:inline-block;margin-top:7px;font-weight:700;font-size:10px;padding:3px 8px;border-radius:999px}
+  .ctype.one{background:#FFE1EC;color:var(--pink)} .ctype.sh{background:#DCF3E6;color:#1a8f5f}
+
+  .hero-deal{margin:14px 22px;border-radius:22px;border:3px solid var(--navy);box-shadow:5px 6px 0 var(--navy);padding:20px;color:#fff;position:relative;overflow:hidden}
+  .hero-deal .nm{font-weight:800;font-size:15px}
+  .hero-deal .pct{font-family:var(--display);font-weight:800;font-size:46px;line-height:1;margin:4px 0 6px}
+  .hero-deal .site{font-weight:700;font-size:13px;opacity:.9}
+  .panel{margin:0 22px 14px;background:#fff;border:3px solid var(--navy);border-radius:18px;padding:15px 17px}
+  .panel .l{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase}
+  .panel .v{font-size:14px;line-height:1.7;color:rgba(28,20,56,.8);font-weight:600;margin-top:4px}
+
+  .codebox{margin:14px 22px;border:3px dashed var(--navy);border-radius:20px;background:#FFF0CC;padding:22px;text-align:center}
+  .codebox .l{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:2px;color:rgba(28,20,56,.6)}
+  .codebox .cv{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:3px;margin:10px 0}
+  .timer{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14px;background:var(--navy);color:var(--yellow);border-radius:999px;padding:8px 15px}
+
+  .cart{margin:14px 22px;background:#fff;border:3px solid var(--navy);border-radius:18px;overflow:hidden}
+  .citem{display:flex;gap:13px;padding:15px;align-items:center;border-bottom:3px solid var(--navy)}
+  .citem .img{width:64px;height:64px;border-radius:12px;background-size:cover;border:3px solid var(--navy);flex:0 0 auto}
+  .citem .nm{font-family:var(--display);font-weight:800;font-size:16px}
+  .citem .pr{font-weight:700;color:rgba(28,20,56,.6);font-size:14px}
+  .crow{display:flex;justify-content:space-between;padding:10px 16px;font-weight:700;font-size:15px}
+  .crow.disc{color:#1a8f5f}
+  .crow.tot{border-top:3px solid var(--navy);font-family:var(--display);font-weight:800;font-size:19px;padding:14px 16px}
+  .promo{margin:14px 22px;display:flex;gap:9px}
+  .promo .pin{flex:1;height:52px;border-radius:14px;border:3px solid var(--navy);background:#FFF0CC;padding:0 15px;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:1px;color:var(--navy);display:flex;align-items:center}
+  .promo .pap{width:104px;height:52px;border-radius:14px}
+  .applied{margin:0 22px 8px;font-weight:700;font-size:13px;color:#1a8f5f;display:none}
+
+  .successwrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:30px}
+  .checkbig{width:108px;height:108px;border-radius:50%;background:var(--green);border:3px solid var(--navy);box-shadow:6px 6px 0 var(--navy);display:grid;place-items:center;font-size:54px}
+  .conf{position:absolute;width:10px;height:10px;border-radius:2px;top:-14px;animation:fall linear infinite}
+  @keyframes fall{to{transform:translateY(900px) rotate(540deg);opacity:0}}
+
+  .bnav{position:sticky;bottom:0;display:flex;justify-content:space-around;padding:11px 0 24px;background:#fff;border-top:3px solid var(--navy)}
+  .bnav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-family:var(--display);font-weight:700;font-size:11px;color:var(--mut)}
+  .bnav button.on{color:var(--pink)}.bnav .ic{font-size:18px}
+  .foot{text-align:center;font-weight:700;font-size:11px;color:rgba(28,20,56,.4);padding:12px 0 4px}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+
+  <!-- ONBOARD 1 (kept exactly like POP) -->
+  <section class="scr on s-yellow" id="s-onboard">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div><button class="skip" data-go="signin">Skip</button></div>
+    <div class="pad">
+      <div style="position:relative;flex:1;min-height:300px">
+        <div class="emoji" style="top:40px;left:6px;background:var(--violet);--r:-8deg">💸</div>
+        <div class="emoji" style="top:96px;right:8px;background:var(--mint);--r:7deg">🎓</div>
+        <div class="emoji" style="top:250px;right:26px;width:150px;height:150px;background:var(--pink);font-size:66px;--r:4deg">🛍️</div>
+      </div>
+      <h1 class="big" style="font-size:46px">Student life<br>is pricey.<br>Discounts<br><span class="hl p">shouldn't be hard</span></h1>
+      <p class="lead">Real brands, real student prices — the second you prove you're a student. No catch.</p>
+      <div style="margin-top:22px"><div class="dots"><i class="on"></i><i></i><i></i></div>
+        <button class="btn btn-navy" data-go="onboard2">Next →</button></div>
+    </div>
+  </section>
+
+  <!-- ONBOARD 2 -->
+  <section class="scr s-lav" id="s-onboard2">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div><button class="skip" data-go="signin">Skip</button></div>
+    <div class="pad">
+      <div class="spacer"></div>
+      <div class="panel" style="margin:0 0 8px;box-shadow:6px 7px 0 var(--navy)">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:10px">
+          <div style="width:46px;height:46px;border-radius:50%;border:3px solid var(--navy);background-size:cover;background-image:url('https://picsum.photos/seed/miraface/100/100')"></div>
+          <div><div style="font-family:var(--display);font-weight:800;font-size:16px">Verified · LUMS</div><div style="font-size:12px;color:var(--mut)">4 brands she actually shops</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;border:2.5px solid var(--navy);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#FFE1EC;font-weight:700;font-size:14px"><span>👟 Norcal</span><span class="big" style="font-size:16px">20%</span></div>
+        <div style="display:flex;justify-content:space-between;border:2.5px solid var(--navy);border-radius:12px;padding:10px 12px;background:#DCF3E6;font-weight:700;font-size:14px"><span>⌚ D'noir</span><span class="big" style="font-size:16px">25%</span></div>
+      </div>
+      <div class="spacer"></div>
+      <h1 class="big" style="font-size:42px">Brands you love.<br><span class="hl v">actual student prices</span></h1>
+      <p class="lead">Real products, real links, real discounts.</p>
+      <div style="margin-top:22px"><div class="dots"><i></i><i class="on"></i><i></i></div>
+        <button class="btn btn-navy" data-go="onboard3">Next →</button></div>
+    </div>
+  </section>
+
+  <!-- ONBOARD 3 -->
+  <section class="scr s-mint" id="s-onboard3">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div><button class="skip" data-go="signin">Skip</button></div>
+    <div class="pad">
+      <div style="position:relative;flex:1;min-height:240px">
+        <div class="emoji" style="top:40px;left:10px;background:var(--pink);--r:-7deg">🔥</div>
+        <div class="emoji" style="top:80px;right:14px;background:var(--yellow);--r:8deg">🙌</div>
+        <div class="emoji" style="top:180px;left:24px;background:var(--violet);--r:5deg">🎉</div>
+      </div>
+      <h1 class="big" style="font-size:44px">Verify once.<br><span class="hl g">save everywhere</span></h1>
+      <p class="lead">LUMS · FAST · UMT · UCP · FCCU. Join thousands of students already saving.</p>
+      <div style="margin-top:22px"><div class="dots"><i></i><i></i><i class="on"></i></div>
+        <button class="btn btn-navy" data-go="signin">Get started →</button></div>
+    </div>
+  </section>
+
+  <!-- SIGN IN -->
+  <section class="scr s-cream" id="s-signin">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><button class="back" data-go="onboard">←</button><div class="wm">UNISCENE ✶</div><span style="width:44px"></span></div>
+    <div class="pad">
+      <h1 class="big" style="font-size:34px;margin-bottom:6px">Create your<br>account</h1>
+      <p class="lead" style="margin-bottom:22px">Your university email is the fastest way in.</p>
+      <div class="field"><label>Full name</label><input id="f-name" value="Mira Raza"></div>
+      <div class="field"><label>Your university</label>
+        <div class="chips" id="uniChips">
+          <button class="chip on" data-uni="LUMS">LUMS</button><button class="chip" data-uni="FAST">FAST</button>
+          <button class="chip" data-uni="UMT">UMT</button><button class="chip" data-uni="UCP">UCP</button><button class="chip" data-uni="FCCU">FCCU</button>
+        </div>
+      </div>
+      <div class="field"><label>University email</label><input id="f-email" value="26100481@lums.edu.pk"></div>
+      <div class="err" id="signErr">Please fill everything in.</div>
+      <div class="spacer"></div>
+      <button class="btn btn-navy" id="signContinue">Continue →</button>
+    </div>
+  </section>
+
+  <!-- VERIFY -->
+  <section class="scr s-cream" id="s-verify">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><button class="back" data-go="signin">←</button><div class="wm">UNISCENE ✶</div><span style="width:44px"></span></div>
+    <div class="pad">
+      <h1 class="big" style="font-size:32px;margin-bottom:6px">Prove you're<br>a student</h1>
+      <p class="lead" style="margin-bottom:20px">Two ways in. Both unlock every code.</p>
+      <button class="vcard lead-c" data-go="verifying"><span class="vtag now">INSTANT · RECOMMENDED</span><h3>University email magic link</h3><p>We send one link to your inbox. Tap it, you're verified.</p></button>
+      <button class="vcard alt-c" data-go="verifying"><span class="vtag l8">WITHIN 48 HOURS</span><h3>Upload your documents</h3><p>Student card + admission letter. AI pre-checks, a human approves.</p></button>
+      <div class="spacer"></div>
+      <p style="font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.6">Verification expires at graduation. Documents are encrypted &amp; never shared.</p>
+    </div>
+  </section>
+
+  <!-- VERIFYING -->
+  <section class="scr s-cream" id="s-verifying">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div></div>
+    <div class="pad" style="justify-content:center">
+      <h1 class="big" style="font-size:30px">Verifying you…</h1>
+      <div class="progress"><i id="vfill"></i></div>
+      <div id="vrows"></div>
+    </div>
+  </section>
+
+  <!-- VERIFIED -->
+  <section class="scr s-cream" id="s-verified">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="pad" style="align-items:center;justify-content:center;text-align:center;gap:14px">
+      <div class="emoji" style="position:relative;width:108px;height:108px;font-size:54px;background:var(--green)">✓</div>
+      <h1 class="big" style="font-size:40px">Verified!</h1>
+      <p style="font-family:var(--display);font-weight:700;font-size:15px;color:rgba(28,20,56,.7);line-height:1.7" id="verifiedSub">Mira Raza<br>LUMS · valid till Jun 2027</p>
+      <p class="lead" style="text-align:center">Every code on UniScene is now yours. Welcome in.</p>
+      <button class="btn btn-pink" style="margin-top:10px" data-go="offers">Browse offers 🎁</button>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="scr s-cream" id="s-offers">
+    <div class="status" style="color:#fff"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="hdr">
+      <div class="blob b1"></div><div class="blob b2"></div>
+      <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between">
+        <div class="wm" style="color:#fff">UNISCENE ✶</div><button class="skip" style="color:#fff" data-go="profile">◎ You</button>
+      </div>
+      <div class="hgreet">
+        <div class="pic" style="background-image:url('https://picsum.photos/seed/miraface/120/120')"></div>
+        <div><h2 id="greetName">Salam, Mira 👋</h2><div class="vpill">✓ Verified · <b id="greetUni">LUMS</b></div></div>
+      </div>
+    </div>
+    <div class="marq"><div class="mtrack">
+      <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
+      <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
+    </div></div>
+    <div class="search">🔍 Search brands, categories…</div>
+    <div class="cats"><button class="cat on">All</button><button class="cat">Fashion</button><button class="cat">Tech</button><button class="cat">Accessories</button></div>
+    <div class="sectit">Your offers · online-first</div>
+    <div class="grid" id="offerGrid"></div>
+    <div class="foot">UNISCENE · POP MINI · PROTOTYPE</div>
+    <div class="bnav">
+      <button class="on"><span class="ic">◎</span>Offers</button>
+      <button data-go="card"><span class="ic">▢</span>Card</button>
+      <button data-go="profile"><span class="ic">☺</span>You</button>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section class="scr s-cream" id="s-detail">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><button class="back" data-go="offers">←</button><div class="wm">UNISCENE ✶</div><span style="width:44px"></span></div>
+    <div class="hero-deal" id="detailHero"></div>
+    <div class="panel"><div class="l">The fine print</div><div class="v" id="detailTerms"></div></div>
+    <div class="spacer"></div>
+    <div class="pad" style="flex:0"><button class="btn btn-pink" data-go="reveal">Reveal my code 🎁</button></div>
+  </section>
+
+  <!-- REVEAL -->
+  <section class="scr s-cream" id="s-reveal">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><button class="back" data-go="detail">←</button><div class="wm">UNISCENE ✶</div><span style="width:44px"></span></div>
+    <div class="pad" style="flex:0;padding-bottom:6px"><h1 class="big" style="font-size:28px">Tap. Reveal. <span class="hl v">Flex.</span></h1></div>
+    <div class="codebox">
+      <div class="l">YOUR CODE — YOURS ALONE</div>
+      <div class="cv" id="revealCode">NOR-7K2M-9XQ</div>
+      <div class="timer">⏱ EXPIRES IN <span id="revealTimer">29:58</span></div>
+    </div>
+    <div class="panel" style="text-align:center"><div class="v" id="revealVendor" style="margin:0">Paste at checkout.</div></div>
+    <div class="spacer"></div>
+    <div class="pad" style="flex:0"><button class="btn btn-navy" data-go="checkout">Shop &amp; checkout →</button></div>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section class="scr s-cream" id="s-checkout">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><button class="back" data-go="reveal">←</button><div class="wm" id="checkoutSite" style="font-size:16px">norcal.pk</div><span style="width:44px"></span></div>
+    <div class="pad" style="flex:0;padding-bottom:6px"><h1 class="big" style="font-size:26px">Your bag</h1><p style="font-weight:600;color:var(--mut);font-size:13px;margin-top:3px">simulated brand checkout</p></div>
+    <div class="cart">
+      <div class="citem"><div class="img" id="coImg"></div><div style="flex:1"><div class="nm" id="coItem">Hoodie</div><div class="pr" id="coItemPr">Rs 6,500</div></div></div>
+      <div class="crow"><span>Subtotal</span><span id="coSub">Rs 6,500</span></div>
+      <div class="crow disc" id="coDiscRow" style="display:none"><span id="coDiscLbl">Student discount</span><span id="coDisc">– Rs 1,300</span></div>
+      <div class="crow tot"><span>Total</span><span id="coTotal">Rs 6,500</span></div>
+    </div>
+    <div class="promo"><div class="pin" id="coCode">NOR-7K2M-9XQ</div><button class="btn btn-yellow pap" id="applyBtn">Apply</button></div>
+    <div class="applied" id="appliedMsg">✓ Student code applied — you saved <span id="savedAmt"></span>!</div>
+    <div class="spacer"></div>
+    <div class="pad" style="flex:0"><button class="btn btn-pink" data-go="success">Place order →</button></div>
+  </section>
+
+  <!-- SUCCESS -->
+  <section class="scr s-cream" id="s-success">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="successwrap">
+      <div class="checkbig">🎉</div>
+      <h1 class="big" style="font-size:38px">Order placed!</h1>
+      <p class="lead" style="text-align:center">You just saved <b id="finalSaved" style="color:var(--pink)">Rs 1,300</b> as a verified student. That's the whole point of UniScene.</p>
+      <div class="panel" style="margin:8px 0 0;width:100%;text-align:left"><div class="l">What happened</div><div class="v">→ Verified once · unlocked every code<br>→ Single-use code applied at checkout<br>→ Reveal &amp; redemption logged (analytics-ready)</div></div>
+      <button class="btn btn-navy" style="margin-top:8px" data-go="offers">Back to offers</button>
+      <button class="skip" data-go="onboard" style="margin-top:4px">Restart journey</button>
+    </div>
+  </section>
+
+  <!-- CARD -->
+  <section class="scr s-cream" id="s-card">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div></div>
+    <div class="pad" style="flex:0"><h1 class="big" style="font-size:26px;margin-bottom:14px">Membership</h1>
+      <div class="hero-deal" style="background:var(--violet);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;margin:0">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div class="wm" style="color:#fff;font-size:17px">UNISCENE✶</div><span class="vpill">✓ VERIFIED</span></div>
+        <div><div style="font-family:var(--display);font-weight:800;font-size:28px;color:#fff" id="cardName">Mira Raza</div>
+          <div style="font-weight:700;font-size:13px;color:rgba(255,255,255,.85)" id="cardUni">LUMS · UNI-48210</div>
+          <div style="font-weight:700;font-size:13px;color:rgba(255,255,255,.85)">VALID TILL JUN 2027</div>
+          <div style="font-family:var(--display);font-weight:800;font-size:26px;color:#fff;margin-top:10px" id="cardClock">09:41:00</div></div>
+      </div>
+      <p style="font-size:13px;color:rgba(28,20,56,.7);font-weight:600;margin-top:14px;line-height:1.6">Show this in store. The live clock proves it's really you, right now.</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="bnav"><button data-go="offers"><span class="ic">◎</span>Offers</button><button class="on"><span class="ic">▢</span>Card</button><button data-go="profile"><span class="ic">☺</span>You</button></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="scr s-cream" id="s-profile">
+    <div class="status"><span>9:41</span><span>✶ 100%</span></div>
+    <div class="bar"><div class="wm">UNISCENE ✶</div></div>
+    <div class="pad" style="flex:0"><h1 class="big" style="font-size:26px;margin-bottom:14px">Profile</h1>
+      <div class="cart" style="margin:0">
+        <div class="crow"><span style="color:var(--mut)">Name</span><span id="pfName">Mira Raza</span></div>
+        <div class="crow" style="border-top:3px solid var(--navy)"><span style="color:var(--mut)">University</span><span id="pfUni">LUMS</span></div>
+        <div class="crow" style="border-top:3px solid var(--navy)"><span style="color:var(--mut)">Status</span><span style="color:#1a8f5f">VERIFIED ✓</span></div>
+        <div class="crow" style="border-top:3px solid var(--navy)"><span style="color:var(--mut)">Re-verify by</span><span>Jun 2027</span></div>
+      </div>
+      <button class="btn btn-navy" style="margin-top:16px" data-go="onboard">Log out / restart</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="bnav"><button data-go="offers"><span class="ic">◎</span>Offers</button><button data-go="card"><span class="ic">▢</span>Card</button><button class="on"><span class="ic">☺</span>You</button></div>
+  </section>
+
+</div>
+<script>
+  const VENDORS=[
+    {id:'norcal',name:'Norcal',tag:'Streetwear',deal:'20%',pct:20,type:'one',site:'norcal.pk',img:'norcalpm',item:'Oversized Hoodie',price:6500,color:'#1F4A38',terms:'Single-use code · expires 30 min after reveal · one per order · online only'},
+    {id:'dnoir',name:"D'noir",tag:'Watches',deal:'25%',pct:25,type:'one',site:'dnoir.pk',img:'dnoirpm',item:'Noir Automatic',price:18000,color:'#20242C',terms:'Single-use code · expires 30 min after reveal · first order only · online only'},
+    {id:'jild',name:'Jild',tag:'Leather goods',deal:'15%',pct:15,type:'sh',site:'jild.com.pk',img:'jildpm',item:'Leather Satchel',price:9200,color:'#7C4A2D',terms:'Shared code · valid till 31 Aug 2026 · one per order · online only'},
+    {id:'khazanay',name:'Khazanay',tag:'Pre-owned tech',deal:'Rs2K',pct:0,flat:2000,type:'sh',site:'khazanay.pk',img:'khazpm',item:'Refurb Laptop',price:42000,color:'#3E5C76',terms:'Shared code · valid till 31 Aug 2026 · min order Rs 25,000 · online only'}
+  ];
+  let CUR=VENDORS[0], CODE='', NAME='Mira Raza', UNI='LUMS';
+  const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+  const money=n=>'Rs '+n.toLocaleString('en-PK');
+
+  function show(id){$$('.scr').forEach(s=>s.classList.remove('on'));const el=$('#s-'+id);el.classList.add('on');el.scrollTop=0;if(id==='offers')renderOffers();if(id==='verifying')runVerify();if(id==='reveal')doReveal();if(id==='checkout')setupCheckout();}
+  document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go);}});
+
+  $('#uniChips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$$('#uniChips .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');UNI=c.dataset.uni;});
+  $('#signContinue').addEventListener('click',()=>{
+    const n=$('#f-name').value.trim(),em=$('#f-email').value.trim();
+    if(!n||!em.includes('@')){$('#signErr').style.display='block';return;}
+    NAME=n;$('#signErr').style.display='none';
+    $('#verifiedSub').innerHTML=NAME+'<br>'+UNI+' · valid till Jun 2027';
+    $('#greetName').textContent='Salam, '+NAME.split(' ')[0]+' 👋';$('#greetUni').textContent=UNI;
+    $('#cardName').textContent=NAME;$('#cardUni').textContent=UNI+' · UNI-48210';
+    $('#pfName').textContent=NAME;$('#pfUni').textContent=UNI;
+    show('verify');
+  });
+
+  const VROWS=['reading student ID card…','name matches signup ✓','university on registry ✓','graduation read: Jun 2027','authenticity 0.96 — high ✓'];
+  function runVerify(){
+    $('#vfill').style.width='0';$('#vrows').innerHTML='';let p=0,r=0;
+    const t=setInterval(()=>{p+=5;$('#vfill').style.width=Math.min(p,100)+'%';
+      const want=Math.ceil(p/100*VROWS.length);
+      while(r<want&&r<VROWS.length){const d=document.createElement('div');d.className='scanrow';d.textContent=VROWS[r];$('#vrows').appendChild(d);r++;}
+      if(p>=100){clearInterval(t);setTimeout(()=>show('verified'),550);}
+    },110);
+  }
+
+  function renderOffers(){
+    const g=$('#offerGrid');g.innerHTML='';
+    VENDORS.forEach(v=>{
+      const b=document.createElement('button');b.className='ocard';
+      b.innerHTML=`<div class="sq" style="background-image:url('https://picsum.photos/seed/${v.img}/300/300')"><div class="deal">${v.deal} OFF</div></div>
+        <div class="meta"><div class="bn">${v.name}</div><div class="bt">${v.tag}</div><span class="ctype ${v.type}">${v.type==='one'?'1-time code':'shared code'}</span></div>`;
+      b.addEventListener('click',()=>{CUR=v;openDetail();});
+      g.appendChild(b);
+    });
+  }
+  function openDetail(){
+    $('#detailHero').style.background=CUR.color;
+    $('#detailHero').innerHTML=`<div class="nm">${CUR.name} · ${CUR.tag}</div><div class="pct">${CUR.deal} OFF</div><div class="site">🔗 ${CUR.site}</div>`;
+    $('#detailTerms').textContent=CUR.terms;show('detail');
+  }
+  function rndCode(v){const A='23456789ABCDEFGHJKMNPQRSTUVWXYZ';let x='';for(let i=0;i<7;i++)x+=A[Math.floor(Math.random()*A.length)];const p=v.name.replace(/[^A-Za-z]/g,'').slice(0,3).toUpperCase();return p+'-'+x.slice(0,4)+'-'+x.slice(4);}
+  let revTimer=null;
+  function doReveal(){
+    CODE=CUR.type==='sh'?(CUR.id==='jild'?'JILD-UNI15':'KHZ-STUDENT2K'):rndCode(CUR);
+    $('#revealCode').textContent=CODE;
+    $('#revealVendor').innerHTML='For <b>'+CUR.name+'</b> · paste at checkout on '+CUR.site;
+    if(revTimer)clearInterval(revTimer);
+    if(CUR.type==='sh'){$('#revealTimer').parentElement.style.display='none';}
+    else{$('#revealTimer').parentElement.style.display='inline-flex';let s=30*60;const tk=()=>{s=Math.max(0,s-1);$('#revealTimer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};tk();revTimer=setInterval(tk,1000);}
+  }
+  function setupCheckout(){
+    $('#checkoutSite').textContent=CUR.site;
+    $('#coImg').style.backgroundImage=`url('https://picsum.photos/seed/${CUR.img}/200/200')`;
+    $('#coItem').textContent=CUR.item;$('#coItemPr').textContent=money(CUR.price);
+    $('#coSub').textContent=money(CUR.price);$('#coTotal').textContent=money(CUR.price);
+    $('#coCode').textContent=CODE;$('#coDiscRow').style.display='none';$('#appliedMsg').style.display='none';
+    $('#applyBtn').disabled=false;$('#applyBtn').textContent='Apply';
+  }
+  $('#applyBtn').addEventListener('click',()=>{
+    const disc=CUR.flat?CUR.flat:Math.round(CUR.price*CUR.pct/100);const total=CUR.price-disc;
+    $('#coDiscLbl').textContent=CUR.flat?'Student discount (Rs 2,000 off)':('Student discount ('+CUR.pct+'% off)');
+    $('#coDisc').textContent='– '+money(disc);$('#coDiscRow').style.display='flex';$('#coTotal').textContent=money(total);
+    $('#savedAmt').textContent=money(disc);$('#appliedMsg').style.display='block';$('#finalSaved').textContent=money(disc);
+    $('#applyBtn').textContent='✓';$('#applyBtn').disabled=true;
+  });
+
+  setInterval(()=>{const c=$('#cardClock');if(c)c.textContent=new Date().toLocaleTimeString('en-GB',{hour12:false});},1000);
+  const cols=['#FCBE2D','#FF4D9D','#7C5CFC','#22C788'];
+  (function(){const host=$('#s-success');for(let i=0;i<26;i++){const c=document.createElement('div');c.className='conf';c.style.left=Math.random()*100+'%';c.style.background=cols[i%4];c.style.animationDuration=(2.6+Math.random()*2.4)+'s';c.style.animationDelay=(Math.random()*3.5)+'s';host.appendChild(c);}})();
+
+  show('onboard');
+</script>
+</body>
+</html>

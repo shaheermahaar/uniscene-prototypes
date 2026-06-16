@@ -46,6 +46,11 @@
   .pop{background:linear-gradient(135deg,#3a2e10,#1c1408)}.pop .tag{color:#FCBE2D}
   .drip{background:linear-gradient(135deg,#22201a,#121009)}.drip .tag{color:#D7FF3E}
   .riot{background:linear-gradient(135deg,#1a1a05,#0a0a0a);border-color:rgba(230,255,0,.3)}.riot .tag{color:#E6FF00}
+  .fiesta{background:linear-gradient(135deg,#3a2c0e,#241a0a)}.fiesta .tag{color:#FFC233}
+  .popmini{background:linear-gradient(135deg,#3a2e10,#1c1408)}.popmini .tag{color:#FCBE2D}
+  .live{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;background:#16C79A;color:#06231f;padding:5px 9px;border-radius:999px;letter-spacing:.5px;animation:lp 2s ease-in-out infinite}
+  @keyframes lp{50%{opacity:.55}}
+  .card.feat{border-color:rgba(255,194,51,.5);box-shadow:0 14px 40px rgba(255,194,51,.18)}
 
   /* sticky pick bar */
   .bar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(8,8,14,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.12);padding:16px 18px 26px;transform:translateY(110%);transition:transform .3s}
@@ -61,11 +66,33 @@
 <body>
 <div class="wrap">
   <div class="head"><div class="mark">✶</div><b>uni<span>scene</span></b></div>
-  <div class="lead">ON HAI · PROTOTYPE DASHBOARD · 7 DIRECTIONS</div>
+  <div class="lead">ON HAI · PROTOTYPE DASHBOARD · 9 DIRECTIONS · 2 FULLY FUNCTIONAL</div>
   <h1>Pick the vibe.</h1>
-  <p class="desc">Seven takes on the same product — all tap-through on your phone, same brand &amp; vendors, different soul. Hit <b>Preview</b> to open one full-screen, then <b>Choose</b> the winner. Whichever you pick becomes the real app's design tokens; every screen already built inherits it instantly.</p>
+  <p class="desc">Nine takes on the same product, all on your phone. The <b style="color:#FFC233">two at the top — FIESTA &amp; POP MINI — are fully working journeys</b>: sign in, verify, browse, reveal a code, and check out for real. The rest are static visual directions. Tap <b>Try / Preview</b>, then <b>Choose</b> a winner — it becomes the real app's design tokens and every built screen inherits it instantly.</p>
 
-  <div class="grouph">⬢ Pulled from your references</div>
+  <div class="grouph">★ Fully functional · full journey (onboarding → sign in → verify → offers → reveal → checkout)</div>
+  <div class="grid">
+    <div class="card fiesta feat" id="card-fiesta">
+      <span class="chosen-badge">✓ CHOSEN</span><span class="live">● FULLY WORKING</span>
+      <div class="tag">DIRECTION · FIESTA</div>
+      <h2>FIESTA 🎉</h2>
+      <p>The mix you asked for — POP's energy + CAMPUS's clean cards + HYPE's vibrance, on a richer yellow palette. <b>Small square brand cards.</b> Click all the way from sign-in to a real checkout that applies your code &amp; shows the savings.</p>
+      <span class="ref">POP × HYPE × CAMPUS · refined colours</span>
+      <div class="swatch"><i style="background:#FFC233"></i><i style="background:#FF4D8D"></i><i style="background:#6C4CE0"></i><i style="background:#16C79A"></i></div>
+      <div class="btns"><a class="prev" href="./fiesta.html">▶ Try the journey</a><button class="pick" data-id="fiesta" data-name="FIESTA">✓ Choose</button></div>
+    </div>
+    <div class="card popmini feat" id="card-popmini">
+      <span class="chosen-badge">✓ CHOSEN</span><span class="live">● FULLY WORKING</span>
+      <div class="tag">DIRECTION · POP MINI</div>
+      <h2>POP MINI 🎈</h2>
+      <p>Exactly POP — same yellow, same chunky type, marker highlights &amp; thick outlines, same near-perfect first screen — just with <b>small square brand cards</b>. Fully clickable end-to-end, sign-in to checkout.</p>
+      <span class="ref">pure POP · smaller cards · functional</span>
+      <div class="swatch"><i style="background:#FCBE2D"></i><i style="background:#FF4D9D"></i><i style="background:#7C5CFC"></i><i style="background:#1C1438"></i></div>
+      <div class="btns"><a class="prev" href="./popmini.html">▶ Try the journey</a><button class="pick" data-id="popmini" data-name="POP MINI">✓ Choose</button></div>
+    </div>
+  </div>
+
+  <div class="grouph">⬢ Pulled from your references (static)</div>
   <div class="grid">
     <div class="card pop" id="card-pop">
       <span class="chosen-badge">✓ CHOSEN</span>
