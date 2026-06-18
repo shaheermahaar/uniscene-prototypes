@@ -86,7 +86,8 @@
 
   /* ===== OFFERS — SMALL SQUARE CARDS ===== */
   #s-offers{background:var(--cream)}
-  .hdr{background:var(--berry);border-bottom:3px solid var(--ink);padding:16px 22px 20px;position:relative;overflow:hidden}
+  .hdr{background:var(--berry);border-bottom:3px solid var(--ink);padding:calc(14px + env(safe-area-inset-top)) 22px 20px;position:relative;overflow:hidden}
+  .offersbody{background:var(--cream)}
   .hdr .blob{position:absolute;border-radius:50%;border:3px solid var(--ink)}
   .hdr .b1{width:120px;height:120px;background:var(--sun);top:-34px;right:-18px}
   .hdr .b2{width:70px;height:70px;background:var(--grape);bottom:-26px;right:80px}
@@ -102,7 +103,30 @@
   .cats{display:flex;gap:8px;overflow-x:auto;padding:12px 22px 6px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
   .cat{flex:0 0 auto;min-height:40px;padding:8px 15px;border-radius:999px;border:2.5px solid var(--ink);background:var(--paper);font-weight:700;font-size:13.5px}
   .cat.on{background:var(--ink);color:#fff}
-  .sectit{font-family:var(--display);font-weight:800;font-size:18px;padding:14px 22px 4px}
+  .sectit{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 6px}
+  .sectit h3{font-family:var(--display);font-weight:800;font-size:19px}
+  .adtag{font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:1px;color:var(--mut);border:2px solid var(--mut);border-radius:999px;padding:3px 9px}
+  /* featured banner (premium paid placement) */
+  .featured{margin:8px 22px 2px;border:3px solid var(--ink);border-radius:22px;box-shadow:6px 7px 0 var(--ink);overflow:hidden;position:relative;text-align:left;width:calc(100% - 44px)}
+  .featured .img{height:190px;background-size:cover;background-position:center;position:relative}
+  .featured .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,26,59,.05) 30%,rgba(34,26,59,.82))}
+  .featured .fbadge{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--display);font-weight:800;font-size:12px;background:var(--sun);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:5px 12px;box-shadow:2px 2px 0 var(--ink)}
+  .featured .fbody{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px;color:#fff}
+  .featured .fname{font-family:var(--display);font-weight:800;font-size:24px;line-height:1}
+  .featured .fdeal{display:flex;align-items:center;gap:9px;margin-top:6px}
+  .featured .fpct{font-family:var(--display);font-weight:800;font-size:20px;background:var(--berry);border:2px solid var(--ink);border-radius:10px;padding:2px 10px}
+  .featured .fsub{font-weight:600;font-size:13px;opacity:.92}
+  /* sponsored horizontal auto-scroll */
+  .adscroll{overflow:hidden;padding:6px 0 8px;-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .adtrack{display:flex;gap:12px;width:max-content;animation:adx 22s linear infinite;padding:0 22px}
+  .adscroll:hover .adtrack{animation-play-state:paused}
+  @keyframes adx{to{transform:translateX(-50%)}}
+  .adcard{flex:0 0 auto;width:150px;border:3px solid var(--ink);border-radius:16px;background:var(--paper);box-shadow:4px 5px 0 var(--ink);overflow:hidden}
+  .adcard .ai{height:90px;background-size:cover;background-position:center;border-bottom:3px solid var(--ink);position:relative}
+  .adcard .ad-deal{position:absolute;top:7px;left:7px;font-family:var(--display);font-weight:800;font-size:12px;background:var(--sun);color:var(--ink);border:2px solid var(--ink);padding:2px 7px;border-radius:8px}
+  .adcard .am{padding:8px 10px 11px}
+  .adcard .an{font-family:var(--display);font-weight:800;font-size:14px}
+  .adcard .at{font-size:11px;color:var(--mut)}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:4px 22px 16px}
   .ocard{background:var(--paper);border:3px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:4px 5px 0 var(--ink);transition:transform .12s}
   .ocard:active{transform:translate(2px,2px);box-shadow:2px 3px 0 var(--ink)}
@@ -251,10 +275,10 @@
 
   <!-- OFFERS (small square cards) -->
   <section class="scr" id="s-offers">
-    <div class="status" style="color:#fff"><span>9:41</span><span>✶ 100%</span></div>
     <div class="hdr">
       <div class="blob b1"></div><div class="blob b2"></div>
-      <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;color:#fff">
+      <div class="status" style="color:#fff;padding:0"><span>9:41</span><span>✶ 100%</span></div>
+      <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;color:#fff;margin-top:10px">
         <div class="wm" style="color:#fff">UNISCENE<span style="color:#fff">✶</span></div>
         <button class="link" style="color:#fff" data-go="profile">◎ You</button>
       </div>
@@ -267,12 +291,18 @@
       <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
       <span>✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER ✦ VERIFIED STUDENT PRICES ✦ NO CATCH ✦ FREE FOREVER&nbsp;</span>
     </div></div>
-    <div class="search">🔍 Search brands, categories…</div>
-    <div class="cats">
-      <button class="cat on">All</button><button class="cat">Fashion</button><button class="cat">Tech</button><button class="cat">Accessories</button>
+    <div class="offersbody">
+      <div class="search">🔍 Search brands, categories…</div>
+      <div class="cats">
+        <button class="cat on">All</button><button class="cat">Fashion</button><button class="cat">Tech</button><button class="cat">Accessories</button><button class="cat">Food</button>
+      </div>
+      <div class="sectit"><h3>⭐ Featured this week</h3><span class="adtag">FEATURED</span></div>
+      <button class="featured" id="featuredCard"></button>
+      <div class="sectit"><h3>Trending brands</h3><span class="adtag">SPONSORED</span></div>
+      <div class="adscroll"><div class="adtrack" id="adTrack"></div></div>
+      <div class="sectit"><h3>All offers</h3><span style="font-weight:600;font-size:12px;color:var(--mut)">online-first</span></div>
+      <div class="grid" id="offerGrid"></div>
     </div>
-    <div class="sectit">Your offers · online-first</div>
-    <div class="grid" id="offerGrid"></div>
     <div class="foot">UNISCENE · FIESTA · PROTOTYPE</div>
     <div class="bnav">
       <button class="on"><span class="ic">◎</span>Offers</button>
@@ -397,7 +427,7 @@
   const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
   const money=n=>'Rs '+n.toLocaleString('en-PK');
 
-  function show(id){$$('.scr').forEach(s=>s.classList.remove('on'));const el=$('#s-'+id);el.classList.add('on');const p=$('#phone');(p.scrollTop=0);el.scrollTop=0;if(id==='offers')renderOffers();if(id==='verifying')runVerify();if(id==='reveal')doReveal();if(id==='checkout')setupCheckout();}
+  function show(id){$$('.scr').forEach(s=>s.classList.remove('on'));const el=$('#s-'+id);el.classList.add('on');el.scrollTop=0;window.scrollTo(0,0);if(id==='offers')renderOffers();if(id==='verifying')runVerify();if(id==='reveal')doReveal();if(id==='checkout')setupCheckout();}
   document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go);}});
 
   // uni chips
@@ -424,8 +454,21 @@
     },110);
   }
 
-  // offers
+  // offers — featured banner + sponsored lane + square grid
+  const byId=id=>VENDORS.find(v=>v.id===id);
   function renderOffers(){
+    const f=VENDORS[0];
+    const fc=$('#featuredCard');
+    fc.innerHTML=`<div class="img" style="background-image:url('https://picsum.photos/seed/${f.img}feat/600/360')"></div>
+      <div class="fbadge">★ FEATURED PARTNER</div>
+      <div class="fbody"><div class="fname">${f.name}</div>
+        <div class="fdeal"><span class="fpct">${f.deal} OFF</span><span class="fsub">${f.tag} · tap to reveal</span></div></div>`;
+    fc.onclick=()=>{CUR=f;openDetail();};
+    const lane=[VENDORS[1],VENDORS[2],VENDORS[3],VENDORS[1],VENDORS[2],VENDORS[3]];
+    $('#adTrack').innerHTML=lane.map(v=>`<button class="adcard" data-v="${v.id}">
+      <div class="ai" style="background-image:url('https://picsum.photos/seed/${v.img}ad/300/180')"><div class="ad-deal">${v.deal}</div></div>
+      <div class="am"><div class="an">${v.name}</div><div class="at">${v.tag}</div></div></button>`).join('');
+    $$('#adTrack .adcard').forEach(b=>b.onclick=()=>{CUR=byId(b.dataset.v);openDetail();});
     const g=$('#offerGrid');g.innerHTML='';
     VENDORS.forEach(v=>{
       const b=document.createElement('button');b.className='ocard';
