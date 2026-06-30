@@ -118,7 +118,7 @@
   .featured .fsub{font-weight:600;font-size:13px;opacity:.92}
   /* sponsored horizontal auto-scroll */
   .adscroll{overflow:hidden;padding:6px 0 8px;-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-  .adtrack{display:flex;gap:12px;width:max-content;animation:adx 22s linear infinite;padding:0 22px}
+  .adtrack{display:flex;gap:12px;width:max-content;animation:adx 40s linear infinite;padding:0 22px}
   .adscroll:hover .adtrack{animation-play-state:paused}
   @keyframes adx{to{transform:translateX(-50%)}}
   .adcard{flex:0 0 auto;width:150px;border:3px solid var(--ink);border-radius:16px;background:var(--paper);box-shadow:4px 5px 0 var(--ink);overflow:hidden}
@@ -249,7 +249,7 @@
     <div class="pad" style="flex:1;display:flex;flex-direction:column">
       <h1 class="big" style="font-size:34px;margin-bottom:6px">Create your<br>account</h1>
       <p class="lead" style="margin-bottom:22px">Your university email is the fastest way in.</p>
-      <div class="field"><label>Full name</label><input id="f-name" value="Mira Raza"></div>
+      <div class="field"><label>Full name</label><input id="f-name" value="Ayesha Khan"></div>
       <div class="field"><label>Your university</label>
         <div class="chips" id="uniChips">
           <button class="chip on" data-uni="LUMS">LUMS</button>
@@ -259,7 +259,7 @@
           <button class="chip" data-uni="FCCU">FCCU</button>
         </div>
       </div>
-      <div class="field"><label>University email</label><input id="f-email" value="26100481@lums.edu.pk"></div>
+      <div class="field"><label>University email</label><input id="f-email" value="ayesha.khan@lums.edu.pk"></div>
       <div class="err" id="signErr">Please fill everything in.</div>
       <div class="spacer"></div>
       <button class="btn btn-dark w100" id="signContinue">Continue →</button>
@@ -321,8 +321,8 @@
         <button class="link" style="color:#fff" data-go="profile">◎ You</button>
       </div>
       <div class="hgreet">
-        <div class="pic" style="background-image:url('https://picsum.photos/seed/miraface/120/120')"></div>
-        <div><h2 id="greetName">Salam, Mira 👋</h2><div class="vpill">✓ Verified · <b id="greetUni">LUMS</b></div></div>
+        <div class="pic" style="background-image:url('https://images.unsplash.com/photo-1680506660555-1c225f5da953?w=160&h=160&fit=crop&crop=faces&q=80')"></div>
+        <div><h2 id="greetName">Salam, Ayesha 👋</h2><div class="vpill">✓ Verified · <b id="greetUni">LUMS</b></div></div>
       </div>
     </div>
     <div class="marq"><div class="mtrack">
@@ -368,6 +368,7 @@
       <div class="l">YOUR CODE — YOURS ALONE</div>
       <div class="cv" id="revealCode">NOR-7K2M-9XQ</div>
       <div class="timer">⏱ EXPIRES IN <span id="revealTimer">29:58</span></div>
+      <button class="btn btn-sun" id="copyCodeBtn" style="height:48px;width:100%;margin-top:16px;font-size:15px">📋 Copy code &amp; shop</button>
     </div>
     <div class="panel" style="text-align:center"><div class="v" id="revealVendor" style="margin:0">Use it at checkout on the brand's site.</div></div>
     <div class="spacer"></div>
@@ -461,7 +462,7 @@
     {id:'jild',name:'Jild',tag:'Leather goods',deal:'15%',pct:15,type:'sh',site:'jild.com.pk',img:'jildfi',item:'Leather Satchel',price:9200,color:'#7C4A2D',terms:'Shared code · valid till 31 Aug 2026 · one per order · online only'},
     {id:'khazanay',name:'Khazanay',tag:'Pre-owned tech',deal:'Rs2K',pct:0,flat:2000,type:'sh',site:'khazanay.pk',img:'khazfi',item:'Refurb Laptop',price:42000,color:'#3E5C76',terms:'Shared code · valid till 31 Aug 2026 · min order Rs 25,000 · online only'}
   ];
-  let CUR=VENDORS[0], CODE='', NAME='Mira Raza', UNI='LUMS';
+  let CUR=VENDORS[0], CODE='', NAME='Ayesha Khan', UNI='LUMS';
   const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
   const money=n=>'Rs '+n.toLocaleString('en-PK');
 
@@ -552,6 +553,13 @@
     $('#savedAmt').textContent=money(disc);$('#appliedMsg').style.display='block';
     $('#finalSaved').textContent=money(disc);
     $('#applyBtn').textContent='✓';$('#applyBtn').disabled=true;
+  });
+
+  // copy code + open the brand site (real redemption behaviour)
+  $('#copyCodeBtn').addEventListener('click',function(){
+    const btn=this,go=()=>{btn.textContent='✓ Copied — opening '+CUR.site;setTimeout(()=>window.open('https://'+CUR.site,'_blank','noopener'),450);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(CODE).then(go).catch(go);}
+    else{const t=document.createElement('textarea');t.value=CODE;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}t.remove();go();}
   });
 
   // live clock on card
