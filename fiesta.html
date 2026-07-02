@@ -180,6 +180,40 @@
   .bnav button.on{color:var(--berry)}.bnav .ic{font-size:18px}
   .foot{text-align:center;font-weight:700;font-size:11px;color:rgba(34,26,59,.4);padding:12px 0 4px}
   .spacer{flex:1}
+
+  /* ===== demo-match: card flags + featured logo ===== */
+  .ddemo{position:absolute;bottom:10px;right:12px;z-index:3;font-family:var(--body);font-weight:700;font-size:9px;letter-spacing:.06em;color:#fff;background:rgba(34,26,59,.55);border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:2px 6px;text-transform:uppercase}
+  .cdemo{position:absolute;top:7px;right:7px;z-index:3;font-family:var(--body);font-weight:700;font-size:8px;letter-spacing:.05em;color:var(--ink);background:rgba(255,255,255,.85);border:1.5px solid var(--ink);border-radius:5px;padding:1px 5px;text-transform:uppercase}
+  .featured .flogo{position:absolute;top:12px;right:12px;z-index:2;width:46px;height:46px;border-radius:12px;background:#fff;border:2.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);overflow:hidden;display:grid;place-items:center}
+  .featured .flogo img{width:100%;height:100%;object-fit:contain}
+  /* ===== demo-match: brand page ===== */
+  .bhero{color:#fff;padding:22px 22px 26px;position:relative;overflow:hidden;flex-shrink:0}
+  .bhero:after{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:rgba(255,255,255,.13);border-radius:50%}
+  .blogo{width:64px;height:64px;border-radius:18px;background:#fff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:28px;box-shadow:4px 4px 0 var(--ink);overflow:hidden;position:relative;z-index:1}
+  .blogo img{width:100%;height:100%;object-fit:contain;background:#fff}
+  .bhero h1{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.05;margin:14px 0 6px;letter-spacing:-.5px;position:relative;z-index:1}
+  .bhero p{font-size:14px;opacity:.95;max-width:295px;position:relative;z-index:1}
+  .bcat{display:inline-block;margin-top:13px;background:#fff;color:var(--ink);font-weight:700;font-size:12px;border:2px solid var(--ink);border-radius:999px;padding:5px 12px;box-shadow:3px 3px 0 var(--ink);position:relative;z-index:1}
+  .bwrap{padding:20px 0 28px}
+  .blead{font-family:var(--display);font-weight:800;font-size:19px;margin:2px 22px 4px}
+  .bsub{font-size:13px;color:var(--ink-soft);margin:0 22px 16px}
+  .offer{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:5px 6px 0 var(--ink);padding:18px;margin:0 22px 16px}
+  .offer .orow{display:flex;align-items:center;gap:12px}
+  .obadge{width:48px;height:48px;border-radius:14px;color:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:22px;border:2px solid var(--ink)}
+  .offer h3{font-family:var(--display);font-weight:800;font-size:16px}
+  .pctlbl{font-size:12px;color:var(--ink-soft);font-weight:600}
+  .opct{font-family:var(--display);font-weight:800;font-size:36px;line-height:1;margin:14px 0 2px}
+  .ocode{display:none;margin-top:14px;text-align:center}
+  .ocode.on{display:block}
+  .ocode .val{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:.14em;border:3px dashed var(--ink);border-radius:12px;padding:13px;background:#FFF6D6}
+  .ocode small{display:block;margin-top:8px;color:var(--ink-soft);font-size:11px}
+  .olock{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;margin:0 22px 22px;font-size:12.5px;font-weight:600}
+  .bmore{font-family:var(--display);font-weight:800;font-size:16px;margin:4px 22px 12px}
+  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 22px 22px}
+  .tile{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:12px;box-shadow:3px 3px 0 var(--ink)}
+  .tile .e{font-size:26px}
+  .tile .n{font-weight:700;font-size:13px;margin-top:6px}
+  .tile .d{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;background:var(--sun);border:1.5px solid var(--ink);border-radius:999px;padding:2px 8px}
 </style>
 </head>
 <body>
@@ -332,13 +366,13 @@
     <div class="offersbody">
       <div class="search">🔍 Search brands, categories…</div>
       <div class="cats">
-        <button class="cat on">All</button><button class="cat">Fashion</button><button class="cat">Tech</button><button class="cat">Accessories</button><button class="cat">Food</button>
+        <button class="cat on">All</button><button class="cat">Beauty &amp; Self-Care</button><button class="cat">Fashion</button><button class="cat">Tech</button><button class="cat">Food</button><button class="cat">Fitness</button>
       </div>
       <div class="sectit"><h3>⭐ Featured this week</h3><span class="adtag">FEATURED</span></div>
       <button class="featured" id="featuredCard"></button>
       <div class="sectit"><h3>Trending brands</h3><span class="adtag">SPONSORED</span></div>
       <div class="adscroll"><div class="adtrack" id="adTrack"></div></div>
-      <div class="sectit"><h3>All offers</h3><span style="font-weight:600;font-size:12px;color:var(--mut)">online-first</span></div>
+      <div class="sectit"><h3>All offers</h3><span style="font-weight:600;font-size:12px;color:var(--mut)">students only</span></div>
       <div class="grid" id="offerGrid"></div>
     </div>
     <div class="foot">UNISCENE · FIESTA · PROTOTYPE</div>
@@ -349,14 +383,39 @@
     </div>
   </section>
 
-  <!-- DETAIL -->
+  <!-- DETAIL — brand page (matches the Talism demo) -->
   <section class="scr" id="s-detail">
     <div class="status"><span>9:41</span><span>✶ 100%</span></div>
     <div class="bar"><button class="back" data-go="offers">←</button><div class="wm">UNISCENE<span class="s">✶</span></div><span style="width:42px"></span></div>
-    <div class="hero-deal" id="detailHero"></div>
-    <div class="panel"><div class="l">The fine print</div><div class="v" id="detailTerms"></div></div>
-    <div class="spacer"></div>
-    <div class="pad"><button class="btn btn-berry w100" data-go="reveal">Reveal my code 🎁</button></div>
+    <div class="bhero" id="brandHero"></div>
+    <div class="bwrap">
+      <div class="blead">Real prices, for students only.</div>
+      <div class="bsub">Prove you're a student once. Then unlock offers you won't find anywhere else.</div>
+      <div class="offer">
+        <div class="orow">
+          <div class="obadge" id="brandBadge">T</div>
+          <div><h3 id="brandOfferName">Brand — Student Offer</h3><div class="pctlbl">Exclusive to verified students</div></div>
+        </div>
+        <div class="opct" id="brandPct">25% OFF</div>
+        <div class="pctlbl">More than the public sale — because you're a student.</div>
+        <button class="btn btn-berry w100" id="detailRevealBtn" style="margin-top:14px">Reveal my code 🎁</button>
+        <div class="ocode" id="detailCode">
+          <div class="val" id="detailCodeVal">CODE</div>
+          <small id="detailCodeSub">Single-use · tied to your student account · sample (prototype)</small>
+          <button class="btn btn-dark w100" id="detailShopBtn" style="margin-top:14px;font-size:16px">Copy code &amp; shop →</button>
+        </div>
+      </div>
+      <div class="olock">🔒&nbsp;<span>Codes show <b>only</b> after student verification — never public, never leaked.</span></div>
+      <div class="bmore">More student perks <span style="font-family:var(--body);font-weight:600;font-size:11px;color:var(--mut)">· illustrative, demo only</span></div>
+      <div class="tgrid">
+        <div class="tile"><div class="e">👕</div><div class="n">Outfitters</div><span class="d">20% off</span></div>
+        <div class="tile"><div class="e">👗</div><div class="n">Sapphire</div><span class="d">15% off</span></div>
+        <div class="tile"><div class="e">🧥</div><div class="n">Khaadi</div><span class="d">20% off</span></div>
+        <div class="tile"><div class="e">👟</div><div class="n">Breakout</div><span class="d">25% off</span></div>
+        <div class="tile"><div class="e">💻</div><div class="n">Nova</div><span class="d">15% off</span></div>
+        <div class="tile"><div class="e">🍔</div><div class="n">Johnny &amp; Jugnu</div><span class="d">15% off</span></div>
+      </div>
+    </div>
   </section>
 
   <!-- REVEAL -->
@@ -457,10 +516,18 @@
 </div>
 <script>
   const VENDORS=[
-    {id:'norcal',name:'Norcal',tag:'Streetwear',deal:'20%',pct:20,type:'one',site:'norcal.pk',img:'norcalfi',item:'Oversized Hoodie',price:6500,color:'#1F4A38',terms:'Single-use code · expires 30 min after reveal · one per order · online only'},
-    {id:'dnoir',name:"D'noir",tag:'Watches',deal:'25%',pct:25,type:'one',site:'dnoir.pk',img:'dnoirfi',item:'Noir Automatic',price:18000,color:'#20242C',terms:'Single-use code · expires 30 min after reveal · first order only · online only'},
-    {id:'jild',name:'Jild',tag:'Leather goods',deal:'15%',pct:15,type:'sh',site:'jild.com.pk',img:'jildfi',item:'Leather Satchel',price:9200,color:'#7C4A2D',terms:'Shared code · valid till 31 Aug 2026 · one per order · online only'},
-    {id:'khazanay',name:'Khazanay',tag:'Pre-owned tech',deal:'Rs2K',pct:0,flat:2000,type:'sh',site:'khazanay.pk',img:'khazfi',item:'Refurb Laptop',price:42000,color:'#3E5C76',terms:'Shared code · valid till 31 Aug 2026 · min order Rs 25,000 · online only'}
+    {id:'talism',name:'Talism',tag:'Beauty & Self-Care',cat:'Beauty & Self-Care',deal:'25%',pct:25,type:'one',site:'talismpk.store',color:'#1F7A53',tagline:'Organic hair care that actually works — now at a real student price.',logo:'https://www.talismpk.store/cdn/shop/files/T_alism_ebbf07ec-f343-4430-915b-ed62e930cffb.png',image:'https://www.talismpk.store/cdn/shop/files/461586762_518946580847541_3905000517777751315_n.jpg'},
+    {id:'sapphire',name:'Sapphire',tag:'Apparel',cat:'Fashion',deal:'15%',pct:15,type:'one',site:'sapphireonline.pk',color:'#2A3D66',image:'https://picsum.photos/seed/sapphire2/600/400'},
+    {id:'khaadi',name:'Khaadi',tag:'Fashion',cat:'Fashion',deal:'20%',pct:20,type:'one',site:'khaadi.com',color:'#7C2D5A',image:'https://picsum.photos/seed/khaadi3/600/400'},
+    {id:'breakout',name:'Breakout',tag:'Casualwear',cat:'Fashion',deal:'25%',pct:25,type:'one',site:'breakout.com.pk',color:'#20242C',image:'https://picsum.photos/seed/breakout4/600/400'},
+    {id:'outfitters',name:'Outfitters',tag:'Streetwear',cat:'Fashion',deal:'20%',pct:20,type:'one',site:'outfitters.com.pk',color:'#1F4A38',image:'https://picsum.photos/seed/outfitters1/600/400'},
+    {id:'bareeze',name:'Bareeze',tag:'Premium fabric',cat:'Fashion',deal:'15%',pct:15,type:'one',site:'bareeze.com',color:'#8A3B12',image:'https://picsum.photos/seed/bareeze5/600/400'},
+    {id:'kayseria',name:'Kayseria',tag:"Women's wear",cat:'Fashion',deal:'20%',pct:20,type:'one',site:'kayseria.com',color:'#6B2D5C',image:'https://picsum.photos/seed/kayseria6/600/400'},
+    {id:'nova',name:'Nova',tag:'Laptops & tech',cat:'Tech',deal:'15%',pct:15,type:'one',site:'nova.pk',color:'#3E5C76',image:'https://picsum.photos/seed/novatech/600/400'},
+    {id:'jj',name:'Johnny & Jugnu',tag:'Burgers',cat:'Food',deal:'15%',pct:15,type:'one',site:'johnnyandjugnu.com',color:'#B23A2E',image:'https://picsum.photos/seed/jjfood/600/400'},
+    {id:'bookme',name:'Bookme',tag:'Travel & tickets',cat:'Travel',deal:'20%',pct:20,type:'one',site:'bookme.pk',color:'#14524A',image:'https://picsum.photos/seed/bookme9/600/400'},
+    {id:'shapes',name:'Shapes',tag:'Gym & fitness',cat:'Fitness',deal:'20%',pct:20,type:'one',site:'shapes.com.pk',color:'#2B3A67',image:'https://picsum.photos/seed/shapesgym/600/400'},
+    {id:'limelight',name:'Limelight',tag:'High-street',cat:'Fashion',deal:'20%',pct:20,type:'one',site:'limelight.pk',color:'#993355',image:'https://picsum.photos/seed/limelight9/600/400'}
   ];
   let CUR=VENDORS[0], CODE='', NAME='Ayesha Khan', UNI='LUMS';
   const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
@@ -493,37 +560,52 @@
     },110);
   }
 
-  // offers — featured banner + sponsored lane + square grid
+  // offers — featured banner + sponsored lane + square grid (demo-matched: real images, DEMO tags)
   const byId=id=>VENDORS.find(v=>v.id===id);
   function renderOffers(){
-    const f=VENDORS[0];
-    const fc=$('#featuredCard');
-    fc.innerHTML=`<div class="img" style="background-image:url('https://picsum.photos/seed/${f.img}feat/600/360')"></div>
-      <div class="fbadge">★ FEATURED PARTNER</div>
+    const f=VENDORS[0], fc=$('#featuredCard');
+    const flogo=f.logo?`<div class="flogo"><img src="${f.logo}" alt=""></div>`:'';
+    fc.innerHTML=`<div class="img" style="background-image:url('${f.image}')"></div>
+      <div class="fbadge">★ FEATURED PARTNER</div>${flogo}<div class="ddemo">demo only</div>
       <div class="fbody"><div class="fname">${f.name}</div>
-        <div class="fdeal"><span class="fpct">${f.deal} OFF</span><span class="fsub">${f.tag} · tap to reveal</span></div></div>`;
+        <div class="fdeal"><span class="fpct">${f.deal} OFF</span><span class="fsub">${f.cat||f.tag} · tap to reveal</span></div></div>`;
     fc.onclick=()=>{CUR=f;openDetail();};
-    const lane=[VENDORS[1],VENDORS[2],VENDORS[3],VENDORS[1],VENDORS[2],VENDORS[3]];
+    const rest=VENDORS.slice(1), lane=rest.concat(rest);
     $('#adTrack').innerHTML=lane.map(v=>`<button class="adcard" data-v="${v.id}">
-      <div class="ai" style="background-image:url('https://picsum.photos/seed/${v.img}ad/300/180')"><div class="ad-deal">${v.deal}</div></div>
+      <div class="ai" style="background-image:url('${v.image}')"><div class="ad-deal">${v.deal}</div><div class="cdemo">demo</div></div>
       <div class="am"><div class="an">${v.name}</div><div class="at">${v.tag}</div></div></button>`).join('');
     $$('#adTrack .adcard').forEach(b=>b.onclick=()=>{CUR=byId(b.dataset.v);openDetail();});
     const g=$('#offerGrid');g.innerHTML='';
     VENDORS.forEach(v=>{
       const b=document.createElement('button');b.className='ocard';
-      b.innerHTML=`<div class="sq" style="background-image:url('https://picsum.photos/seed/${v.img}/300/300')"><div class="deal">${v.deal} OFF</div></div>
+      b.innerHTML=`<div class="sq" style="background-image:url('${v.image}')"><div class="deal">${v.deal} OFF</div><div class="cdemo">demo</div></div>
         <div class="meta"><div class="bn">${v.name}</div><div class="bt">${v.tag}</div>
-        <span class="ctype ${v.type}">${v.type==='one'?'1-time code':'shared code'}</span></div>`;
+        <span class="ctype one">students only</span></div>`;
       b.addEventListener('click',()=>{CUR=v;openDetail();});
       g.appendChild(b);
     });
   }
   function openDetail(){
-    $('#detailHero').style.background=CUR.color;
-    $('#detailHero').innerHTML=`<div class="nm">${CUR.name} · ${CUR.tag}</div><div class="pct">${CUR.deal} OFF</div><div class="site">🔗 ${CUR.site}</div>`;
-    $('#detailTerms').textContent=CUR.terms;
+    const c=CUR.color||'#6C4CE0';
+    const logo=CUR.logo?`<img src="${CUR.logo}" alt="">`:CUR.name.trim().charAt(0).toUpperCase();
+    $('#brandHero').style.background=c;
+    $('#brandHero').innerHTML=`<div class="blogo">${logo}</div><h1>${CUR.name}</h1><p>${CUR.tagline||CUR.tag}</p><span class="bcat">${CUR.cat||CUR.tag}</span>`;
+    const bd=$('#brandBadge');bd.textContent=CUR.name.trim().charAt(0).toUpperCase();bd.style.background=c;
+    $('#brandOfferName').textContent=CUR.name+' — Student Offer';
+    const pc=$('#brandPct');pc.textContent=CUR.deal+' OFF';pc.style.color=c;
+    $('#detailCode').classList.remove('on');$('#detailRevealBtn').style.display='flex';
     show('detail');
   }
+  $('#detailRevealBtn').addEventListener('click',()=>{
+    CODE=rndCode(CUR);
+    $('#detailCodeVal').textContent=CODE;
+    $('#detailCodeSub').textContent='Single-use · tied to your student account · use at '+CUR.site+' · sample (prototype)';
+    $('#detailCode').classList.add('on');$('#detailRevealBtn').style.display='none';
+  });
+  $('#detailShopBtn').addEventListener('click',function(){
+    const btn=this,host=CUR.site.replace(/^https?:\/\//,''),go=()=>{btn.textContent='✓ Copied — opening '+host;setTimeout(()=>window.open('https://'+host,'_blank','noopener'),450);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(CODE).then(go).catch(go);}else{const t=document.createElement('textarea');t.value=CODE;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(e){}t.remove();go();}
+  });
   function rndCode(v){const A='23456789ABCDEFGHJKMNPQRSTUVWXYZ';let x='';for(let i=0;i<7;i++)x+=A[Math.floor(Math.random()*A.length)];const p=v.name.replace(/[^A-Za-z]/g,'').slice(0,3).toUpperCase();return p+'-'+x.slice(0,4)+'-'+x.slice(4);}
   let revTimer=null;
   function doReveal(){
