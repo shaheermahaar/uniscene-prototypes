@@ -86,7 +86,7 @@
 
   /* ===== OFFERS — SMALL SQUARE CARDS ===== */
   #s-offers{background:var(--cream)}
-  .hdr{background:var(--berry);border-bottom:3px solid var(--ink);padding:calc(14px + env(safe-area-inset-top)) 22px 20px;position:relative;overflow:hidden}
+  .hdr{background:var(--berry);border-bottom:3px solid var(--ink);padding:calc(14px + env(safe-area-inset-top)) 22px 20px;position:relative;overflow:hidden;flex-shrink:0}
   .offersbody{background:var(--cream)}
   .hdr .blob{position:absolute;border-radius:50%;border:3px solid var(--ink)}
   .hdr .b1{width:120px;height:120px;background:var(--sun);top:-34px;right:-18px}
@@ -96,7 +96,7 @@
   .hgreet h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1}
   .vpill{display:inline-flex;align-items:center;gap:6px;margin-top:7px;background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:800;font-size:12px;color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
   .vpill b{color:var(--berry)}
-  .marq{background:var(--ink);overflow:hidden;padding:11px 0;display:flex;align-items:center;position:sticky;top:0;z-index:8;border-bottom:3px solid var(--ink)}
+  .marq{background:var(--ink);overflow:hidden;padding:11px 0;display:flex;align-items:center;position:sticky;top:0;z-index:8;border-bottom:3px solid var(--ink);flex-shrink:0}
   .mtrack{display:flex;align-items:center;gap:24px;width:max-content;animation:sx 13s linear infinite;font-family:var(--display);font-weight:800;font-size:13px;line-height:1.5;color:var(--sun);white-space:nowrap}
   @keyframes sx{to{transform:translateX(-50%)}}
   .search{margin:16px 22px 4px;display:flex;align-items:center;gap:9px;height:50px;border-radius:14px;border:2.5px solid var(--ink);background:var(--paper);padding:0 15px;color:var(--mut);font-weight:600;font-size:15px}
